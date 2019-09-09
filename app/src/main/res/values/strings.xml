@@ -1,0 +1,32 @@
+<resources>
+    <string name="app_name">Driver</string>
+    <string name="signup_driver">پیش ثبت نام</string>
+    <string name="back">بازگشت</string>
+    <string name="signin">تایید و ورود</string>
+    <string name="signin_drivers">ورود به پنل سفیران</string>
+    <string name="resend">ارسال مجدد کد تایید</string>
+    <string name="profile">پروفایل</string>
+    <string name="exit_profile">خروج از حساب</string>
+    <string name="home">خانه</string>
+    <string name="income">درآمد</string>
+    <string name="incomes">درآمدها</string>
+    <string name="today_income">درآمد امروز</string>
+    <string name="week_income">درآمد این هفته</string>
+    <string name="month_income">درآمد این ماه</string>
+    <string name="reward">جایزه</string>
+    <string name="financial_gp">گروه مالی</string>
+    <string name="Score">امتیاز</string>
+    <string name="travels">سفرها</string>
+    <string name="request_area">مناطق درخواست</string>
+    <string name="today_online_time">ساعات آنلاین امروز</string>
+    <string name="week_online">ساعات آنلاین هفته</string>
+    <string name="month_online">ساعات آنلاین ماه</string>
+    <string name="remain_day">تعداد روزهای باقی مانده ی کمیسیون</string>
+    <string name="whole_income">درآمد کل</string>
+    <string name="day">روز</string>
+    <string name="hour">ساعت</string>
+    <string name="comis">کمیسیون کل</string>
+    <string name="toman">تومان</string>
+    <string name="traveldetail">جزئیات سفر</string>
+    <string name="history">لیست سفرها</string>
+</resources>

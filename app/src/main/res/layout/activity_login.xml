@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_login">
+
+    <RelativeLayout
+        android:layout_width="300dp"
+        android:layout_height="600dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:background="@drawable/border"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/line1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/radius_blue"
+            android:gravity="start">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/signin_drivers"
+                android:textColor="@color/white"
+                android:textSize="30sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/line2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/line1"
+            android:background="@color/blue"
+            android:paddingTop="30dp">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:background="@drawable/ic_top_back_white" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/line2"
+            android:layout_marginTop="20dp"
+            android:background="@color/white"
+            android:orientation="vertical"
+            android:paddingLeft="40dp"
+            android:paddingRight="40dp">
+
+            <EditText
+                android:id="@+id/email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:drawableRight="@drawable/ic_phone_black_24dp"
+                android:gravity="center"
+                android:hint="شماره تلفن همراه"
+                android:inputType="number"
+                android:lines="1"
+                android:maxLines="1"
+                android:paddingLeft="18dp"
+                android:paddingBottom="8dp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/color01"
+                android:textSize="15sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/color01" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="60dp"
+                android:background="@drawable/corner_blue"
+                android:text="@string/resend"
+                android:drawableRight="@drawable/ic_refresh_white_24dp"
+                android:paddingRight="10dp"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/code"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:background="@android:color/transparent"
+                android:drawableRight="@drawable/ic_lock_outline_black_24dp"
+                android:gravity="center"
+                android:hint="کد تایید ارسال شده"
+                android:inputType="number"
+                android:lines="1"
+                android:maxLines="1"
+                android:paddingLeft="18dp"
+                android:paddingBottom="8dp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/color01"
+                android:textSize="15sp" />
+
+            <View
+                android:id="@+id/view2"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/color01" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <CheckBox
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layoutDirection="rtl"
+                    android:text="تمامی قوانین و مقررات سفیران را می پذیرم" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_above="@+id/line3"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="-36dp"
+            android:layout_marginBottom="-36dp"
+            android:elevation="20dp"
+            android:scaleType="center"
+            android:src="@drawable/ic_tick"
+            app:backgroundTint="@color/green"
+            app:fabCustomSize="60dp" />
+
+        <LinearLayout
+            android:id="@+id/line3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:adjustViewBounds="true"
+                android:background="@drawable/ic_bottom_back_dark_blue" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/radius_dark_blue"
+                android:gravity="bottom"
+                android:paddingTop="25dp"
+                android:paddingBottom="30dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/signin"
+                    android:textColor="@color/white"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>
