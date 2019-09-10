@@ -29,4 +29,5 @@
     <string name="toman">تومان</string>
     <string name="traveldetail">جزئیات سفر</string>
     <string name="history">لیست سفرها</string>
+    <string name="send">ارسال کد تایید</string>
 </resources>

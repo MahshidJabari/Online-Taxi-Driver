@@ -1,7 +1,9 @@
-package com.jabari.driver;
+package com.jabari.driver.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.jabari.driver.R;
 
 public class MainActivity extends AppCompatActivity {
 

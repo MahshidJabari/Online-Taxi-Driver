@@ -55,14 +55,14 @@
             android:paddingRight="40dp">
 
             <EditText
-                android:id="@+id/email"
+                android:id="@+id/et_phoneNum"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
                 android:drawableRight="@drawable/ic_phone_black_24dp"
                 android:gravity="center"
                 android:hint="شماره تلفن همراه"
-                android:inputType="number"
+                android:inputType="phone"
                 android:lines="1"
                 android:maxLines="1"
                 android:paddingLeft="18dp"
@@ -77,19 +77,19 @@
                 android:background="@color/color01" />
 
             <Button
+                android:id="@+id/btn_send"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="60dp"
                 android:background="@drawable/corner_blue"
-                android:text="@string/resend"
-                android:drawableRight="@drawable/ic_refresh_white_24dp"
                 android:paddingRight="10dp"
+                android:text="@string/send"
                 android:textColor="@color/white"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/code"
+                android:id="@+id/et_validationcode"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
@@ -97,7 +97,6 @@
                 android:drawableRight="@drawable/ic_lock_outline_black_24dp"
                 android:gravity="center"
                 android:hint="کد تایید ارسال شده"
-                android:inputType="number"
                 android:lines="1"
                 android:maxLines="1"
                 android:paddingLeft="18dp"
@@ -129,7 +128,7 @@
         </LinearLayout>
 
         <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab"
+            android:id="@+id/btn_login"
             android:layout_width="65dp"
             android:layout_height="65dp"
             android:layout_above="@+id/line3"
