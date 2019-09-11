@@ -1,21 +1,253 @@
 package com.jabari.driver.activity;
 
+import android.Manifest;
+import android.content.ContentValues;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.media.MediaScannerConnection;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.TextView;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.jabari.driver.R;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.MultiplePermissionsReport;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.DexterError;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.PermissionRequestErrorListener;
+import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
+
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.Calendar;
+import java.util.List;
+
 
 public class ProfileActivity extends AppCompatActivity {
-    private FloatingActionButton flo_btn;
+
+    private static final String IMAGE_DIRECTORY = "/demonuts";
+    private FloatingActionButton btn_addImg;
+    private int GALLERY = 1, CAMERA = 2;
+    private ImageView iv_pro;
+    private Uri imageUri;
+    private Bitmap crupBitmap;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        flo_btn = findViewById(R.id.flo_btn);
-        flo_btn.bringToFront();
+        btn_addImg = (FloatingActionButton) findViewById(R.id.btn_image);
+        iv_pro = (ImageView) findViewById(R.id.iv_pro);
+
+
+        requestMultiplePermissions();
+        addProfileImage();
+       }
+
+    public void addProfileImage() {
+        btn_addImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showPictureDialog();
+            }
+        });
+
     }
+    public void showPictureDialog() {
+        AlertDialog.Builder pictureDialog = new AlertDialog.Builder(this);
+        pictureDialog.setTitle("عکس پروفایل را انتخاب کنید!");
+        String[] pictureDialogItems = {
+                "انتخاب عکس از گالری",
+                "گرفتن عکس با دوربین"};
+        pictureDialog.setItems(pictureDialogItems,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which) {
+                            case 0:
+                                choosePhotoFromGallary();
+                                break;
+                            case 1:
+                                takePhotoFromCamera();
+                                break;
+                        }
+                    }
+                });
+        pictureDialog.show();
+    }
+
+    public void choosePhotoFromGallary() {
+        Intent galleryIntent = new Intent(Intent.ACTION_PICK,
+                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+
+        startActivityForResult(galleryIntent, GALLERY);
+    }
+
+    public void takePhotoFromCamera() {
+        ContentValues values = new ContentValues();
+        values.put(MediaStore.Images.Media.TITLE, "New Picture");
+        values.put(MediaStore.Images.Media.DESCRIPTION, "From your Camera");
+        imageUri = getContentResolver().insert(
+                MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+        startActivityForResult(intent, CAMERA);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == this.RESULT_CANCELED) {
+            return;
+        }
+        if (requestCode == GALLERY) {
+            if (data != null) {
+
+                final Uri contentURI = data.getData();
+                try {
+
+                    final Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), contentURI);
+
+                    AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+                    dialog.setTitle("ذخیره شود؟");
+                    dialog.setPositiveButton("بله", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+
+                            crupBitmap = Bitmap.createScaledBitmap(bitmap, 120, 120, false);
+                            iv_pro.setImageBitmap(crupBitmap);
+
+                        }
+                    });
+
+                    dialog.setNegativeButton("خیر", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                        }
+                    });
+                    dialog.show();
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    Toast.makeText(ProfileActivity.this, "Failed!", Toast.LENGTH_SHORT).show();
+
+                }
+            }
+        }else if (requestCode == CAMERA) {
+
+
+                try {
+                    final Bitmap thumbnail;
+                    thumbnail = MediaStore.Images.Media.getBitmap(
+                            getContentResolver(), imageUri);
+                    AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+                    dialog.setTitle("ذخیره شود؟");
+                    dialog.setPositiveButton("بله", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+
+                            saveImage(thumbnail);
+                            crupBitmap = Bitmap.createScaledBitmap(thumbnail, 120, 120, false);
+                            iv_pro.setImageBitmap(crupBitmap);
+
+                        }
+                    });
+
+                    dialog.setNegativeButton("خیر", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                        }
+                    });
+                    dialog.show();
+
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+
+
+    }
+    public void requestMultiplePermissions() {
+        Dexter.withActivity(this)
+                .withPermissions(
+                        Manifest.permission.CAMERA,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        Manifest.permission.READ_EXTERNAL_STORAGE)
+                .withListener(new MultiplePermissionsListener() {
+                    @Override
+                    public void onPermissionsChecked(MultiplePermissionsReport report) {
+
+                        if (report.areAllPermissionsGranted()) {
+                        }
+
+                        if (report.isAnyPermissionPermanentlyDenied()) {
+
+                        }
+                    }
+
+                    @Override
+                    public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {
+
+                        token.continuePermissionRequest();
+
+                    }
+                }).
+                withErrorListener(new PermissionRequestErrorListener() {
+                    @Override
+                    public void onError(DexterError error) {
+                        Toast.makeText(getApplicationContext(), "Some Error! ", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .onSameThread()
+                .check();
+    }
+    public String saveImage(Bitmap myBitmap) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        myBitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        File wallpaperDirectory = new File(
+                Environment.getExternalStorageDirectory() + IMAGE_DIRECTORY);
+        // have the object build the directory structure, if needed.
+        if (!wallpaperDirectory.exists()) {
+            wallpaperDirectory.mkdirs();
+        }
+
+        try {
+            File f = new File(wallpaperDirectory, Calendar.getInstance()
+                    .getTimeInMillis() + ".jpg");
+            f.createNewFile();
+            FileOutputStream fo = new FileOutputStream(f);
+            fo.write(bytes.toByteArray());
+            MediaScannerConnection.scanFile(this,
+                    new String[]{f.getPath()},
+                    new String[]{"image/jpeg"}, null);
+            fo.close();
+            Log.d("TAG", "File Saved::---&gt;" + f.getAbsolutePath());
+
+            return f.getAbsolutePath();
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
+        return "";
+    }
+
+
 }
