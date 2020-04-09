@@ -4,6 +4,10 @@ buildscript {
     repositories {
         google()
         jcenter()
+        maven { url "https://jitpack.io" }
+        maven {
+            url 'https://maven.fabric.io/public'
+        }
         
     }
     dependencies {
@@ -18,8 +22,9 @@ allprojects {
     repositories {
         google()
         jcenter()
-        
-    }
+        maven { url "https://dl.bintray.com/neshan/neshan-android-sdk" }
+        mavenCentral()
+       }
 }
 
 task clean(type: Delete) {

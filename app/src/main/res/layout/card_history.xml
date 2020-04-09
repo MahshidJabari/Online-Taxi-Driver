@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/border2">
+    android:background="@drawable/back_radius_thirty_white">
 
     <LinearLayout
         android:id="@+id/lin1"
@@ -11,11 +11,12 @@
         android:layout_marginLeft="40dp"
         android:layout_marginTop="20dp"
         android:layout_marginRight="40dp"
-        android:background="@drawable/border"
+        android:background="@drawable/back_radius_fifty_white"
         android:orientation="horizontal"
         android:weightSum="2">
 
         <TextView
+            android:id="@+id/tv_date"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -45,15 +46,15 @@
 
     </LinearLayout>
 
-    <view
+    <View
         android:id="@+id/view2"
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:layout_below="@id/lin1"
         android:layout_marginLeft="50dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:layout_marginRight="50dp"
-        android:background="@color/color07" />
+        android:background="@color/gray" />
 
     <LinearLayout
         android:id="@+id/lin2"
@@ -62,13 +63,13 @@
         android:layout_below="@id/view2"
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
-        android:background="@drawable/border"
+        android:background="@drawable/back_radius_fifty_white"
         android:orientation="horizontal"
         android:weightSum="2">
 
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1"
             android:orientation="vertical">
@@ -77,30 +78,33 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:gravity="center"
-                android:text="برگشت"
-                android:textColor="@color/black"
-                android:textSize="25sp"
+                android:text="@string/back"
+                android:textAlignment="center"
+                android:textColor="@color/color06"
+                android:textSize="20sp"
                 android:textStyle="bold">
 
             </TextView>
 
             <TextView
-                android:id="@+id/tv_back"
+                android:id="@+id/tv_money_back"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:layout_marginBottom="10dp"
                 android:gravity="center"
-                android:text="aaaaaa"
-                android:textColor="@color/pink" />
+                android:text="(داده شد)"
+                android:textColor="@color/pink"
+                android:textDirection="ltr"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
         </LinearLayout>
 
-        <view
+        <View
             android:layout_width="2dp"
             android:layout_height="match_parent"
-            android:background="@color/color07" />
+            android:background="@color/gray" />
 
         <LinearLayout
             android:layout_width="0dp"
@@ -113,24 +117,49 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:paddingRight="30dp"
-                android:text="حمل/خرید"
-                android:textColor="@color/black"
-                android:textSize="25sp"
+                android:text="@string/buy"
+                android:textAlignment="center"
+                android:textColor="@color/color06"
+                android:textSize="20sp"
                 android:textStyle="bold">
 
 
             </TextView>
 
-            <TextView
-                android:id="@+id/tv_buy"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:layout_marginBottom="10dp"
-                android:gravity="center"
-                android:text="aaaaaa"
-                android:textColor="@color/blue" />
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:text="تومان"
+                    android:textColor="@color/blue"
+                    android:textDirection="rtl"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_money"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="left"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:text="n"
+                    android:textColor="@color/blue"
+                    android:textDirection="ltr"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+
+            </LinearLayout>
 
 
         </LinearLayout>
@@ -138,65 +167,159 @@
 
     </LinearLayout>
 
-    <view
+    <View
         android:id="@+id/view4"
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:layout_below="@id/lin2"
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"
-        android:background="@color/color07" />
-    <TextView
+        android:background="@color/gray" />
+
+    <LinearLayout
+        android:id="@+id/lin3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/tv_address"
         android:layout_below="@id/view4"
-        android:drawableRight="@drawable/ic_location_on_green_24dp"
-        android:layout_marginRight="50dp"
-        android:layout_marginTop="10dp"
-        android:hint="address"
-        android:textDirection="rtl"
-        android:textColor="@color/color06"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:layout_marginBottom="10dp"/>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_below="@id/tv_address"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:background="@drawable/back_radius_fifty_white"
         android:orientation="horizontal"
-        android:weightSum="2"
-        android:layout_marginRight="10dp"
-        android:layout_marginLeft="10dp"
-        android:background="@drawable/corner_blue">
+        android:weightSum="2">
 
-        <TextView
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:id="@+id/tv_phone"
+            android:layout_gravity="center"
             android:layout_weight="1"
-            android:paddingRight="10dp"
-            android:text="0936 260 2014"
-            android:textColor="@color/white"
-            android:gravity="center"
-            android:textStyle="bold"
-            android:textSize="20sp"
-            android:drawableRight="@drawable/ic_phone_in_talk_white_24dp"/>
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/tv_name"
-            android:layout_weight="1"
-            android:paddingRight="10dp"
-            android:text="محمد رضا اکبری"
-            android:textColor="@color/white"
-            android:gravity="center"
-            android:textStyle="bold"
-            android:textSize="20sp"
-            android:drawableRight="@drawable/limit_icon_profile"/>
+            android:orientation="vertical">
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/payment_permission"
+                android:textAlignment="center"
+                android:textColor="@color/color06"
+                android:textSize="20sp"
+                android:textStyle="bold">
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/tv_pay_right"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginBottom="10dp"
+                android:gravity="center"
+                android:text="(دارد)"
+                android:textColor="@color/blue"
+                android:textDirection="ltr"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="2dp"
+            android:layout_height="match_parent"
+            android:background="@color/gray" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/payment"
+                android:textAlignment="center"
+                android:textColor="@color/color06"
+                android:textSize="20sp"
+                android:textStyle="bold">
+
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/tv_payment_side"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginBottom="10dp"
+                android:gravity="center"
+                android:text="(مشتری)"
+                android:textColor="@color/blue"
+                android:textDirection="ltr"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+
+        </LinearLayout>
 
 
     </LinearLayout>
+
+    <View
+        android:id="@+id/view5"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_below="@id/lin3"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:background="@color/gray" />
+
+    <TextView
+        android:id="@+id/tv_start_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/view5"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginBottom="10dp"
+        android:drawableStart="@drawable/ic_location_on_green_24dp"
+        android:layoutDirection="rtl"
+        android:text="خیابان"
+        android:textColor="@color/color06"
+        android:textDirection="rtl"
+        android:textSize="17sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tv_destination_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_start_address"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="10dp"
+        android:drawableStart="@drawable/ic_location_on_orange_24dp"
+        android:layoutDirection="rtl"
+        android:text="خیابان"
+        android:textColor="@color/color06"
+        android:textDirection="rtl"
+        android:textSize="17sp"
+        android:textStyle="bold" />
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@id/tv_destination_address"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:background="@drawable/corner_blue"
+        android:gravity="center"
+        android:text="@string/see_details"
+        android:textColor="@color/white"
+        android:textSize="25sp"
+        android:textStyle="bold">
+
+    </TextView>
 
 </RelativeLayout>

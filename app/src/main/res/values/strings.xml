@@ -30,4 +30,51 @@
     <string name="traveldetail">جزئیات سفر</string>
     <string name="history">لیست سفرها</string>
     <string name="send">ارسال کد تایید</string>
-</resources>
+    <string name="area">مناطق پر درخواست</string>
+    <string name="lot">زیاد</string>
+    <string name="without">بدون</string>
+    <string name="name">نام</string>
+    <string name="family">نام خانوادگی</string>
+    <string name="little">کم</string>
+    <string name="debug">اشکال زدایی</string>
+    <string name="update">به روز رسانی</string>
+    <string name="salary_detail">جزئیات درآمد</string>
+    <string name="num">#شماره پیگیری</string>
+    <string name="account">مشخصات حساب</string>
+    <string name="save">ثبت</string>
+    <string name="delete">حذف</string>
+    <string name="attention">توجه:</string>
+    <string name="msg_sheba">تنها روزی یکبار قادر به تنظیمات این قسمت هستید!</string>
+    <string name="account_owner">نام صاحب حساب : </string>
+    <string name="current_sheba_num">شماره شبای کنونی:</string>
+    <string name="connect_internet">ارتباط با اینترنت</string>
+    <string name="clinic_net">کلینیک اینترنت</string>
+    <string name="communication_way">نوع ارتباط</string>
+    <string name="gps_situation">وضعیت مکان یاب</string>
+    <string name="gps_quality">کیفیت مکان یاب</string>
+    <string name="activity_situation">وضعیت فعالیت</string>
+    <string name="server">سرور</string>
+    <string name="give_code">دریافت کد تایید</string>
+    <string name="payment">طرف پرداخت</string>
+    <string name="payment_permission">حق پرداخت</string>
+    <string name="buy">حمل/خرید</string>
+    <string name="back_">برگشت</string>
+    <string name="shipping_cost">هزینه ی حمل</string>
+    <string name="see_details">مشاهده ی جزئیات</string>
+    <string name="driver_type">نوع سفیر</string>
+    <string name="driver_name">نام سفیر</string>
+    <string name="stop">توقف</string>
+    <string name="email_address">آدرس ایمیل</string>
+    <string name="mobile_num">شماره تلفن همراه</string>
+    <string name="sheba_num">شماره شبا</string>
+ <!--   <string name="linkToSite"><a href="">قوانین و مقررات</a></string>
+ -->
+    <string name="linkToSite">قوانین و مقررات</string>
+    <string name="call_support">تماس با پشتیبانی</string>
+    <string name="learn">آموزش کار با اپلیکیشن</string>
+    <string name="telegram_channel">کانال تلگرام سفیران</string>
+    <string name="driver_card">کارت حساب سفیر</string>
+    <string name="pass">رمز عبور ارسال شده</string>
+    <string name="msg_signup">شما میتوانید از این قسمت نسبت به پیش ثبت نام بعنوان سفیر دیجی پیک اقدام کنید! سپس یک رسید برای شما ارسال میشود که شما میتوانید با ارائه ی رسید ارسال شده و اصل شناسنامه خود به یکی از مراکز ثبت نام، حساب خود را فعال کنید.</string>
+    </resources>
+

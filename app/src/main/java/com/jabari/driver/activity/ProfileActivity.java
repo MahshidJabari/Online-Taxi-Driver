@@ -1,7 +1,9 @@
 package com.jabari.driver.activity;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -17,6 +19,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jabari.driver.R;
@@ -35,6 +38,8 @@ import java.io.IOException;
 import java.util.Calendar;
 import java.util.List;
 
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
+
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -44,19 +49,43 @@ public class ProfileActivity extends AppCompatActivity {
     private ImageView iv_pro;
     private Uri imageUri;
     private Bitmap crupBitmap;
+    private TextView tv_return,tv_email,tv_phone,tv_sheba,tv_support,tv_debug,
+            tv_tutorial,tv_telegram,tv_credit;
+    private ImageView img_return;
+
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        btn_addImg = (FloatingActionButton) findViewById(R.id.btn_image);
-        iv_pro = (ImageView) findViewById(R.id.iv_pro);
 
-
+        setView();
         requestMultiplePermissions();
         addProfileImage();
-       }
+        backOnclick();
+    }
+
+    private void setView(){
+        btn_addImg = findViewById(R.id.btn_image);
+        iv_pro = findViewById(R.id.iv_pro);
+        tv_return = findViewById(R.id.tv_return);
+        img_return = findViewById(R.id.img_return);
+        tv_email = findViewById(R.id.tv_email);
+        tv_phone = findViewById(R.id.tv_phone);
+        tv_sheba = findViewById(R.id.tv_numSheba);
+        tv_credit = findViewById(R.id.tv_creditcard);
+        tv_debug = findViewById(R.id.tv_debugnum);
+        tv_support = findViewById(R.id.tv_support);
+        tv_telegram = findViewById(R.id.tv_telegramchannel);
+        tv_tutorial = findViewById(R.id.tv_tutorial);
+
+    }
 
     public void addProfileImage() {
         btn_addImg.setOnClickListener(new View.OnClickListener() {
@@ -67,6 +96,7 @@ public class ProfileActivity extends AppCompatActivity {
         });
 
     }
+
     public void showPictureDialog() {
         AlertDialog.Builder pictureDialog = new AlertDialog.Builder(this);
         pictureDialog.setTitle("عکس پروفایل را انتخاب کنید!");
@@ -112,7 +142,7 @@ public class ProfileActivity extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == this.RESULT_CANCELED) {
+        if (resultCode == RESULT_CANCELED) {
             return;
         }
         if (requestCode == GALLERY) {
@@ -148,43 +178,44 @@ public class ProfileActivity extends AppCompatActivity {
 
                 }
             }
-        }else if (requestCode == CAMERA) {
+        } else if (requestCode == CAMERA) {
 
 
-                try {
-                    final Bitmap thumbnail;
-                    thumbnail = MediaStore.Images.Media.getBitmap(
-                            getContentResolver(), imageUri);
-                    AlertDialog.Builder dialog = new AlertDialog.Builder(this);
-                    dialog.setTitle("ذخیره شود؟");
-                    dialog.setPositiveButton("بله", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
+            try {
+                final Bitmap thumbnail;
+                thumbnail = MediaStore.Images.Media.getBitmap(
+                        getContentResolver(), imageUri);
+                AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+                dialog.setTitle("ذخیره شود؟");
+                dialog.setPositiveButton("بله", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
 
-                            saveImage(thumbnail);
-                            crupBitmap = Bitmap.createScaledBitmap(thumbnail, 120, 120, false);
-                            iv_pro.setImageBitmap(crupBitmap);
+                        saveImage(thumbnail);
+                        crupBitmap = Bitmap.createScaledBitmap(thumbnail, 120, 120, false);
+                        iv_pro.setImageBitmap(crupBitmap);
 
-                        }
-                    });
+                    }
+                });
 
-                    dialog.setNegativeButton("خیر", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                        }
-                    });
-                    dialog.show();
-
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                dialog.setNegativeButton("خیر", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                    }
+                });
+                dialog.show();
 
 
+            } catch (Exception e) {
+                e.printStackTrace();
             }
 
 
+        }
+
+
     }
+
     public void requestMultiplePermissions() {
         Dexter.withActivity(this)
                 .withPermissions(
@@ -219,6 +250,7 @@ public class ProfileActivity extends AppCompatActivity {
                 .onSameThread()
                 .check();
     }
+
     public String saveImage(Bitmap myBitmap) {
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         myBitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
@@ -248,5 +280,21 @@ public class ProfileActivity extends AppCompatActivity {
         return "";
     }
 
+
+    private void backOnclick(){
+        tv_return.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(ProfileActivity.this,MainActivity.class));
+            }
+        });
+        img_return.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(ProfileActivity.this,MainActivity.class));
+            }
+        });
+
+    }
 
 }
