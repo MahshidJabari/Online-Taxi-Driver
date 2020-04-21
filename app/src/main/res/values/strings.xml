@@ -16,6 +16,13 @@
     <string name="reward">جایزه</string>
     <string name="financial_gp">گروه مالی</string>
     <string name="Score">امتیاز</string>
+    <string name="nationalNum">کدملی</string>
+    <string name="idNumber">شماره شناسنامه</string>
+    <string name="age">سن</string>
+    <string name="address">آدرس</string>
+    <string name="phone">موبایل</string>
+    <string name="father">نام پدر</string>
+    <string name="sheba">شماره شبا </string>
     <string name="travels">سفرها</string>
     <string name="request_area">مناطق درخواست</string>
     <string name="today_online_time">ساعات آنلاین امروز</string>
@@ -33,8 +40,7 @@
     <string name="area">مناطق پر درخواست</string>
     <string name="lot">زیاد</string>
     <string name="without">بدون</string>
-    <string name="name">نام</string>
-    <string name="family">نام خانوادگی</string>
+    <string name="name">نام و نام خانوادگی</string>
     <string name="little">کم</string>
     <string name="debug">اشکال زدایی</string>
     <string name="update">به روز رسانی</string>

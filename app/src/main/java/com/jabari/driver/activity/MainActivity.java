@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.jabari.driver.R;
+import com.jabari.driver.activity.account.ProfileActivity;
 import com.karumi.dexter.BuildConfig;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;

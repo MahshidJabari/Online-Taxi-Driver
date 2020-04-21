@@ -3,26 +3,26 @@ package com.jabari.driver.network.model;
 import com.google.gson.annotations.SerializedName;
 
 public class User {
-    @SerializedName("firstName")
-    String FirstName;
-    @SerializedName("lastName")
-    String lastName;
+    @SerializedName("name")
+    String name;
+
     @SerializedName("mobile")
     String mobileNum;
     @SerializedName("age")
     String age;
-    @SerializedName("meli")
-    String meli;
-    @SerializedName("sheba")
+    @SerializedName("nationalNumber")
+    String NationalNumber;
+    @SerializedName("shebaNumber")
     String sheba;
+    @SerializedName("email")
+    String email;
+    @SerializedName("idNumber")
+    String identity;
+    @SerializedName("address")
+    String address;
+    @SerializedName("fatherName")
+    String fatherName;
 
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
 
     public String getAge() {
         return age;
@@ -32,12 +32,12 @@ public class User {
         this.age = age;
     }
 
-    public String getMeli() {
-        return meli;
+    public String getNationalNumber() {
+        return NationalNumber;
     }
 
-    public void setMeli(String meli) {
-        this.meli = meli;
+    public void setNationalNumber(String nationalNumber) {
+        this.NationalNumber = nationalNumber;
     }
 
     public String getSheba() {
@@ -64,30 +64,28 @@ public class User {
         this.address = address;
     }
 
-    @SerializedName("identity")
-    String identity;
-    @SerializedName("address")
-    String address;
-
-
-    public String getId() {
-        return id;
+    public String getName() {
+        return name;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    @SerializedName("id")
-    String id;
-    @SerializedName("jwtAccessToken")
-
-    public String getFirstName() {
-        return FirstName;
+    public String getEmail() {
+        return email;
     }
 
-    public void setFirstName(String firstName) {
-        FirstName = firstName;
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getFatherName() {
+        return fatherName;
+    }
+
+    public void setFatherName(String fatherName) {
+        this.fatherName = fatherName;
     }
 
 

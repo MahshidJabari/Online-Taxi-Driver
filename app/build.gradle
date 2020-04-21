@@ -32,6 +32,13 @@ android {
         }
     }
 }
+allprojects {
+    repositories {
+
+        maven { url "https://jitpack.io" }
+    }
+}
+
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
@@ -46,4 +53,5 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.6.2'
     implementation 'neshan-android-sdk:mobile-sdk:0.9.5'
     implementation 'com.karumi:dexter:4.2.0'
+    implementation 'com.github.GrenderG:Toasty:1.4.2'
 }

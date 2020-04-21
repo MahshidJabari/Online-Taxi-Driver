@@ -1,4 +1,4 @@
-package com.jabari.driver.activity;
+package com.jabari.driver.activity.account;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,10 +10,15 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.jabari.driver.R;
+import com.jabari.driver.activity.FirstActivity;
+import com.jabari.driver.activity.MainActivity;
 import com.jabari.driver.controller.RegisterController;
+import com.jabari.driver.global.GlobalVariables;
+import com.jabari.driver.global.PrefManager;
 import com.jabari.driver.network.config.ApiInterface;
 import com.jabari.driver.network.model.User;
 
+import es.dmoral.toasty.Toasty;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class RegisterActivity extends AppCompatActivity {
@@ -37,7 +42,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     }
 
-    private void setUpView(){
+    private void setUpView() {
         et_name = findViewById(R.id.et_name);
         et_fName = findViewById(R.id.et_fName);
         et_nationalcode = findViewById(R.id.et_nationalcode);
@@ -50,47 +55,57 @@ public class RegisterActivity extends AppCompatActivity {
 
     }
 
-    private User createUser(){
+    private User createUser() {
 
         user = new User();
         user.setAddress(et_address.getText().toString());
         user.setAge(et_age.getText().toString());
-        user.setFirstName(et_name.getText().toString());
-        user.setLastName(et_fName.getText().toString());
-        user.setMeli(et_nationalcode.getText().toString());
+        user.setFatherName(et_fName.getText().toString());
+        user.setNationalNumber(et_nationalcode.getText().toString());
         user.setIdentity(et_personalcode.getText().toString());
         user.setMobileNum(et_phone.getText().toString());
         user.setSheba(et_sheba.getText().toString());
+        user.setName(et_name.getText().toString());
         return user;
     }
 
-    private void onBackClick(){
+    private void onBackClick() {
         tv_return.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(RegisterActivity.this,FirstActivity.class));
+                startActivity(new Intent(RegisterActivity.this, FirstActivity.class));
             }
         });
     }
 
-    public void OnRegisterClick(View view){
+    public void OnRegisterClick(View view) {
 
-        startActivity(new Intent(RegisterActivity.this,MainActivity.class));
-
-       /* ApiInterface.SignUpCallback signUpCallback = new ApiInterface.SignUpCallback() {
+        ApiInterface.SignUpCallback signUpCallback = new ApiInterface.SignUpCallback() {
             @Override
             public void onResponse(String token) {
-                startActivity(new Intent(RegisterActivity.this,MainActivity.class));
+                savePreferences(token);
+                startActivity(new Intent(RegisterActivity.this, MainActivity.class));
             }
 
             @Override
             public void onFailure(String error) {
-
+                if (error.equals("connection"))
+                    Toasty.error(RegisterActivity.this, "خطا در برقراری ارتباط!", Toasty.LENGTH_LONG).show();
+                if (error.equals("null"))
+                    Toasty.error(RegisterActivity.this, "درخواست با خطا مواجه شد!", Toasty.LENGTH_LONG).show();
             }
         };
 
         RegisterController registerController = new RegisterController(signUpCallback);
-        registerController.Do(createUser());
-   */ }
+        registerController.signUp(createUser());
+    }
+
+    private void savePreferences(String token) {
+
+        PrefManager prefManager = new PrefManager(getBaseContext());
+        prefManager.setToken(token);
+        GlobalVariables.tok = token;
+
+    }
 
 }

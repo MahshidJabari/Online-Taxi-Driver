@@ -1,5 +1,6 @@
 package com.jabari.driver.controller;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.jabari.driver.network.config.ApiClient;
 import com.jabari.driver.network.config.ApiInterface;
@@ -18,21 +19,27 @@ public class RegisterController {
         this.signUpCallback = signUpCallback;
     }
 
-    public void Do(User user) {
+    public void signUp(User user) {
 
         Retrofit retrofit = ApiClient.getClient();
         ApiInterface apiInterface = retrofit.create(ApiInterface.class);
-        Call<JsonObject> call = apiInterface.sign_up(user.getFirstName(),
-                user.getLastName(), user.getMeli(), user.getIdentity(),
-                user.getAge(), user.getAddress(), user.getSheba(), user.getMobileNum());
+        Call<JsonObject> call = apiInterface.sign_up(user.getAge(), user.getEmail(),
+                user.getName(), user.getFatherName(), "false", user.getMobileNum(), user.getAddress(),
+                user.getNationalNumber(), user.getIdentity(), user.getSheba());
         call.enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                if (response.body() != null) {
+                    String token = new Gson().fromJson(response.body().get("jwtAccessToken"), String.class);
+                    signUpCallback.onResponse(token);
+
+                } else
+                    signUpCallback.onFailure("null");
             }
 
             @Override
             public void onFailure(Call<JsonObject> call, Throwable t) {
-
+                signUpCallback.onFailure("connection");
             }
         });
 

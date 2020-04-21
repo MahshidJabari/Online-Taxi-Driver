@@ -72,6 +72,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@drawable/back_thirty_radius_white"
+        android:layoutDirection="rtl"
         android:orientation="horizontal"
         android:translationY="-30dp"
         android:weightSum="3"
@@ -82,17 +83,20 @@
         app:layout_constraintWidth_percent="0.8">
 
         <CheckBox
-            android:id="@+id/check_GPS"
+            android:id="@+id/check_net"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp"
             android:layout_weight="1"
             android:button="@drawable/custom_checkbox"
-            android:paddingLeft="10dp"
-            android:text="GPS"
+            android:layoutDirection="rtl"
+            android:paddingStart="10dp"
+            android:text="اینترنت"
             android:textColor="@color/color10"
+            android:textSize="15sp"
             android:textStyle="bold" />
+
 
         <View
             android:layout_width="2dp"
@@ -107,8 +111,9 @@
         <LinearLayout
             android:id="@+id/ln_salary"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
+            android:layoutDirection="rtl"
             android:orientation="vertical">
 
             <ImageView
@@ -137,20 +142,19 @@
             android:background="@color/color01" />
 
         <CheckBox
-            android:id="@+id/check_net"
+            android:id="@+id/check_GPS"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginRight="15dp"
+            android:layout_marginStart="15dp"
             android:layout_weight="1"
+            android:layoutDirection="ltr"
             android:button="@drawable/custom_checkbox"
-            android:layoutDirection="rtl"
-            android:paddingRight="10dp"
-            android:text="اینترنت"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:text="GPS"
             android:textColor="@color/color10"
-            android:textSize="15sp"
             android:textStyle="bold" />
-
 
     </LinearLayout>
 
@@ -167,7 +171,9 @@
         android:layout_height="0dp"
         android:background="@drawable/back_button"
         android:clickable="true"
+        android:focusable="true"
         android:orientation="vertical"
+        android:paddingTop="5dp"
         app:layout_constraintBottom_toTopOf="@id/guideline_mid_horizontal"
         app:layout_constraintHeight_percent="0.16"
         app:layout_constraintLeft_toRightOf="@id/guideline_mid_vertical"
@@ -178,6 +184,7 @@
             android:layout_height="60dp"
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
+            android:contentDescription="@string/Score"
             android:src="@drawable/score" />
 
         <TextView
@@ -197,7 +204,9 @@
         android:layout_height="0dp"
         android:background="@drawable/back_button"
         android:clickable="true"
+        android:focusable="true"
         android:orientation="vertical"
+        android:paddingTop="5dp"
         app:layout_constraintBottom_toTopOf="@id/guideline_mid_horizontal"
         app:layout_constraintHeight_percent="0.16"
         app:layout_constraintLeft_toRightOf="@id/guideline_left"
@@ -208,6 +217,7 @@
             android:layout_height="60dp"
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
+            android:contentDescription="@string/financial_gp"
             android:src="@drawable/finance" />
 
         <TextView
@@ -227,7 +237,9 @@
         android:layout_height="0dp"
         android:background="@drawable/back_button"
         android:clickable="true"
+        android:focusable="true"
         android:orientation="vertical"
+        android:paddingTop="5dp"
         app:layout_constraintHeight_percent="0.16"
         app:layout_constraintLeft_toRightOf="@id/guideline_mid_vertical"
         app:layout_constraintRight_toLeftOf="@id/guideline_right"
@@ -238,6 +250,7 @@
             android:layout_height="60dp"
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
+            android:contentDescription="@string/request_area"
             android:src="@drawable/location" />
 
         <TextView
@@ -257,7 +270,9 @@
         android:layout_height="0dp"
         android:background="@drawable/back_button"
         android:clickable="true"
+        android:focusable="true"
         android:orientation="vertical"
+        android:paddingTop="5dp"
         app:layout_constraintHeight_percent="0.16"
         app:layout_constraintLeft_toRightOf="@id/guideline_left"
         app:layout_constraintRight_toLeftOf="@id/guideline_mid_vertical2"
@@ -268,6 +283,7 @@
             android:layout_height="60dp"
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
+            android:contentDescription="@string/travels"
             android:src="@drawable/travel_list" />
 
         <TextView
@@ -283,11 +299,11 @@
 
     <TextView
         android:id="@+id/tv_online_offline"
+        style="@style/common_text"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@drawable/back_radius_thirty_gray"
         android:gravity="center"
-        style="@style/common_text"
         android:translationY="-40dp"
         app:layout_constraintBottom_toTopOf="@id/guideline_floatingBtn_top"
         app:layout_constraintHeight_percent="0.05"
@@ -314,6 +330,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.46" />
+
     <android.support.constraint.Guideline
         android:id="@+id/guideline_mid_vertical1"
         android:layout_width="1dp"
@@ -327,6 +344,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.5" />
+
     <android.support.constraint.Guideline
         android:id="@+id/guideline_mid_vertical4"
         android:layout_width="1dp"
@@ -373,8 +391,8 @@
         android:layout_height="wrap_content"
         android:src="@drawable/ic_card_giftcard_white_24dp"
         app:backgroundTint="@color/blue"
-        app:layout_constraintLeft_toRightOf="@id/guideline_mid_vertical4"
         app:layout_constraintBottom_toTopOf="@id/guideline_floatingBtn_bottom"
+        app:layout_constraintLeft_toRightOf="@id/guideline_mid_vertical4"
         app:layout_constraintRight_toLeftOf="@id/guideline_mid_vertical3"
         app:layout_constraintTop_toBottomOf="@id/guideline_floatingBtn_top" />
 
@@ -384,9 +402,9 @@
         android:layout_height="wrap_content"
         android:src="@drawable/ic_attach_money_white_24dp"
         app:backgroundTint="@color/blue"
-        app:layout_constraintRight_toLeftOf="@id/guideline_mid_vertical1"
         app:layout_constraintBottom_toTopOf="@id/guideline_floatingBtn_bottom"
         app:layout_constraintLeft_toRightOf="@id/guideline_mid_vertical"
+        app:layout_constraintRight_toLeftOf="@id/guideline_mid_vertical1"
         app:layout_constraintTop_toBottomOf="@id/guideline_floatingBtn_top" />
 
     <android.support.design.widget.FloatingActionButton
@@ -469,7 +487,7 @@
             android:id="@+id/tv1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="پروفایل"
+            android:text="@string/profile"
             android:textAlignment="center"
             android:textColor="@color/white"
             android:textSize="15sp"
@@ -488,7 +506,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="جایزه"
+            android:text="@string/reward"
             android:textAlignment="center"
             android:textColor="@color/white"
             android:textSize="15sp"
@@ -507,7 +525,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="درآمد"
+            android:text="@string/income"
             android:textAlignment="center"
             android:textColor="@color/white"
             android:textSize="15sp"
@@ -520,7 +538,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="خانه"
+            android:text="@string/home"
             android:textAlignment="center"
             android:textColor="@color/white"
             android:textSize="15sp"

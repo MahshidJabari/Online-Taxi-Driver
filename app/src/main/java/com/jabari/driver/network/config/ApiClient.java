@@ -36,7 +36,7 @@ public class ApiClient {
                     Request originalRequest = chain.request();
 
                     Request.Builder builder = originalRequest.newBuilder()
-                            .addHeader(".Authorization",
+                            .addHeader("Authorization",
                                     GlobalVariables.tok);
                     Request newRequest = builder.build();
                     return chain.proceed(newRequest);
@@ -87,7 +87,6 @@ public class ApiClient {
         if (retrofit == null) {
             retrofit = new Retrofit.Builder()
                     .client(okHttpClient)
-                    .client(UnsafeHttp().build())
                     .baseUrl(BASE_URL)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();

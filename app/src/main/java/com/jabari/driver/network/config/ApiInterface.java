@@ -38,21 +38,23 @@ public interface ApiInterface {
     Call<JsonObject> getLatLong();
 
     interface GetPointsCallback {
-        void onResponse(Location start,Location stop);
+        void onResponse(Location start, Location stop);
 
         void onFailure(String error);
     }
 
     @FormUrlEncoded
     @POST("auth/driver/signup")
-    Call<JsonObject> sign_up(@Field("firstName") String FirstName,
-                             @Field("lastName") String LastName,
-                             @Field("meli") String MeliCode,
-                             @Field("identity") String Identity,
-                             @Field("age") String Age,
-                             @Field("address") String Address,
-                             @Field("sheba") String Sheba,
-                             @Field("phone") String Phone);
+    Call<JsonObject> sign_up(@Field("age") String age,
+                             @Field("email") String email,
+                             @Field("name") String name,
+                             @Field("fatherName") String LastName,
+                             @Field("gender") String gender,
+                             @Field("mobile") String mobile,
+                             @Field("address") String address,
+                             @Field("nationalNumber") String nationalNumber,
+                             @Field("idNumber") String idNumber,
+                             @Field("shebaNumber") String shebaNumber);
 
     interface SignUpCallback {
         void onResponse(String token);

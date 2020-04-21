@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jabari.driver.R;
+import com.jabari.driver.activity.account.ProfileActivity;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 

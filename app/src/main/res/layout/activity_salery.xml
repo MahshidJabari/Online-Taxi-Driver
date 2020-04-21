@@ -835,7 +835,7 @@
             </LinearLayout>
 
 
-        </>
+        </RelativeLayout>
 
 
         <ImageView

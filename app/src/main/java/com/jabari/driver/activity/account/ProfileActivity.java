@@ -1,7 +1,6 @@
-package com.jabari.driver.activity;
+package com.jabari.driver.activity.account;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -23,6 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jabari.driver.R;
+import com.jabari.driver.activity.MainActivity;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
@@ -49,8 +49,8 @@ public class ProfileActivity extends AppCompatActivity {
     private ImageView iv_pro;
     private Uri imageUri;
     private Bitmap crupBitmap;
-    private TextView tv_return,tv_email,tv_phone,tv_sheba,tv_support,tv_debug,
-            tv_tutorial,tv_telegram,tv_credit;
+    private TextView tv_return, tv_email, tv_phone, tv_sheba, tv_support, tv_debug,
+            tv_tutorial, tv_telegram, tv_credit;
     private ImageView img_return;
 
 
@@ -71,7 +71,7 @@ public class ProfileActivity extends AppCompatActivity {
         backOnclick();
     }
 
-    private void setView(){
+    private void setView() {
         btn_addImg = findViewById(R.id.btn_image);
         iv_pro = findViewById(R.id.iv_pro);
         tv_return = findViewById(R.id.tv_return);
@@ -280,21 +280,23 @@ public class ProfileActivity extends AppCompatActivity {
         return "";
     }
 
-
-    private void backOnclick(){
+    private void backOnclick() {
         tv_return.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(ProfileActivity.this,MainActivity.class));
+                startActivity(new Intent(ProfileActivity.this, MainActivity.class));
             }
         });
         img_return.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(ProfileActivity.this,MainActivity.class));
+                startActivity(new Intent(ProfileActivity.this, MainActivity.class));
             }
         });
 
     }
 
+    private void getCurrentUser(){
+
+    }
 }

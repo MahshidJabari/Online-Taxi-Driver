@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/color08">
 
     <android.support.constraint.ConstraintLayout
@@ -93,71 +93,77 @@
         style="@style/dark_blue_15"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintWidth_percent="0.8"
-        app:layout_constraintTop_toBottomOf="@id/guideline_underHeader"
-        app:layout_constraintBottom_toBottomOf="@id/guideline_aboveEnd"
-        android:translationY="-40dp"
-        android:text="@string/msg_signup"
+        android:background="@drawable/back_thirty_radius_white"
         android:gravity="center"
+        android:text="@string/msg_signup"
+        android:translationY="-40dp"
+        app:layout_constraintBottom_toBottomOf="@id/guideline_aboveEnd"
         app:layout_constraintHeight_percent="0.2"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/guideline_underHeader"
         app:layout_constraintVertical_bias="0"
-        android:background="@drawable/back_thirty_radius_white"/>
+        app:layout_constraintWidth_percent="0.8" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline_left"
         android:layout_width="1dp"
         android:layout_height="1dp"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.05"/>
+        app:layout_constraintGuide_percent="0.05" />
+
     <android.support.constraint.Guideline
         android:id="@+id/guideline_right"
         android:layout_width="1dp"
         android:layout_height="1dp"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.95"/>
+        app:layout_constraintGuide_percent="0.95" />
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintRight_toLeftOf="@id/guideline_right"
-        app:layout_constraintLeft_toRightOf="@id/guideline_left"
-        app:layout_constraintTop_toBottomOf="@id/guideline_underHeader"
-        app:layout_constraintVertical_bias="0.7"
-        app:layout_constraintHeight_percent="0.4"
+        android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@id/guideline_aboveEnd"
-        android:orientation="vertical">
+        app:layout_constraintHeight_percent="0.45"
+        app:layout_constraintLeft_toRightOf="@id/guideline_left"
+        app:layout_constraintRight_toLeftOf="@id/guideline_right"
+        app:layout_constraintTop_toBottomOf="@id/guideline_underHeader"
+        app:layout_constraintVertical_bias="0.7">
 
         <LinearLayout
             android:id="@+id/inner1"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintHeight_percent="0.1"
+            android:layoutDirection="rtl"
             android:orientation="horizontal"
-            android:weightSum="2">
+            android:weightSum="2"
+            app:layout_constraintHeight_percent="0.15"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <EditText
-                android:id="@+id/et_fName"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginRight="20dp"
-                android:background="@android:color/transparent"
-                android:hint="@string/family"
-                android:inputType="textPersonName"
-                android:textColorHint="@color/darkGray" />
 
             <EditText
                 android:id="@+id/et_name"
+                style="@style/dark_blue_15"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@android:color/transparent"
                 android:hint="@string/name"
                 android:inputType="text"
                 android:textColorHint="@color/darkGray" />
+
+            <EditText
+                android:id="@+id/et_fName"
+                style="@style/dark_blue_15"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="20dp"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:hint="@string/father"
+                android:inputType="textPersonName"
+                android:textColorHint="@color/darkGray" />
+
 
         </LinearLayout>
 
@@ -165,13 +171,16 @@
             android:id="@+id/inner2"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_constraintTop_toBottomOf="@id/inner1"
-            app:layout_constraintHeight_percent="0.1"
-            android:weightSum="2">
+            android:layoutDirection="rtl"
+            android:weightSum="2"
+            app:layout_constraintHeight_percent="0.05"
+            app:layout_constraintTop_toBottomOf="@id/inner1">
+
 
             <View
                 android:layout_width="0dp"
                 android:layout_height="1dp"
+                android:layout_marginEnd="20dp"
                 android:layout_weight="1"
                 android:background="@color/gray" />
 
@@ -179,7 +188,6 @@
                 android:layout_width="0dp"
                 android:layout_height="1dp"
                 android:layout_weight="1"
-                android:layout_marginLeft="20dp"
                 android:background="@color/gray" />
 
         </LinearLayout>
@@ -188,29 +196,32 @@
             android:id="@+id/inner3"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_constraintTop_toBottomOf="@id/inner2"
-            app:layout_constraintHeight_percent="0.1"
+            android:layoutDirection="rtl"
             android:orientation="horizontal"
-            android:weightSum="2">
+            android:weightSum="2"
+            app:layout_constraintHeight_percent="0.15"
+            app:layout_constraintTop_toBottomOf="@id/inner2">
 
             <EditText
-                android:id="@+id/et_personalcode"
+                android:id="@+id/et_nationalcode"
+                style="@style/dark_blue_15"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="20dp"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@android:color/transparent"
-                android:hint="شماره شناسنامه"
+                android:hint="@string/nationalNum"
                 android:inputType="number"
                 android:textColorHint="@color/darkGray" />
 
             <EditText
-                android:id="@+id/et_nationalcode"
+                android:id="@+id/et_personalcode"
+                style="@style/dark_blue_15"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="20dp"
                 android:layout_weight="1"
                 android:background="@android:color/transparent"
-                android:hint="کد ملی"
+                android:hint="@string/idNumber"
                 android:inputType="number"
                 android:textColorHint="@color/darkGray" />
 
@@ -220,22 +231,22 @@
             android:id="@+id/inner4"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_constraintTop_toBottomOf="@id/inner3"
-            app:layout_constraintHeight_percent="0.1"
-            android:weightSum="2">
+            android:weightSum="2"
+            app:layout_constraintHeight_percent="0.05"
+            app:layout_constraintTop_toBottomOf="@id/inner3">
 
             <View
                 android:layout_width="0dp"
                 android:layout_height="1dp"
-                android:layout_weight="1"
                 android:layout_marginRight="10dp"
+                android:layout_weight="1"
                 android:background="@color/gray" />
 
             <View
                 android:layout_width="0dp"
                 android:layout_height="1dp"
-                android:layout_weight="1"
                 android:layout_marginLeft="10dp"
+                android:layout_weight="1"
                 android:background="@color/gray" />
 
         </LinearLayout>
@@ -244,30 +255,33 @@
             android:id="@+id/inner5"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_constraintTop_toBottomOf="@id/inner4"
-            app:layout_constraintHeight_percent="0.1"
+            android:layoutDirection="rtl"
             android:orientation="horizontal"
-            android:weightSum="4">
-
-            <EditText
-                android:id="@+id/et_address"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="3"
-                android:background="@android:color/transparent"
-                android:hint="آدرس"
-                android:layout_marginRight="20dp"
-                android:inputType="text"
-                android:textColorHint="@color/darkGray" />
+            android:weightSum="4"
+            app:layout_constraintHeight_percent="0.15"
+            app:layout_constraintTop_toBottomOf="@id/inner4">
 
             <EditText
                 android:id="@+id/et_age"
+                style="@style/dark_blue_15"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@android:color/transparent"
-                android:hint="سن"
+                android:hint="@string/age"
                 android:inputType="number"
+                android:textColorHint="@color/darkGray" />
+
+            <EditText
+                android:id="@+id/et_address"
+                style="@style/dark_blue_15"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="20dp"
+                android:layout_weight="3"
+                android:background="@android:color/transparent"
+                android:hint="@string/address"
+                android:inputType="text"
                 android:textColorHint="@color/darkGray" />
 
         </LinearLayout>
@@ -276,16 +290,11 @@
             android:id="@+id/inner6"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_constraintTop_toBottomOf="@id/inner5"
-            app:layout_constraintHeight_percent="0.1"
-            android:weightSum="4">
+            android:layoutDirection="rtl"
+            android:weightSum="4"
+            app:layout_constraintHeight_percent="0.05"
+            app:layout_constraintTop_toBottomOf="@id/inner5">
 
-            <View
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_weight="3"
-                android:layout_marginRight="20dp"
-                android:background="@color/gray" />
 
             <View
                 android:layout_width="0dp"
@@ -293,22 +302,31 @@
                 android:layout_weight="1"
                 android:background="@color/gray" />
 
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="20dp"
+                android:layout_weight="3"
+                android:background="@color/gray" />
+
+
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/inner7"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_constraintTop_toBottomOf="@id/inner6"
-            app:layout_constraintHeight_percent="0.1"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            app:layout_constraintHeight_percent="0.15"
+            app:layout_constraintTop_toBottomOf="@id/inner6">
 
             <EditText
                 android:id="@+id/et_numShaba"
+                style="@style/dark_blue_15"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:background="@android:color/transparent"
-                android:hint="شماره شبا"
+                android:hint="@string/sheba"
                 android:inputType="number"
                 android:textColorHint="@color/darkGray" />
         </LinearLayout>
@@ -317,27 +335,27 @@
             android:id="@+id/mid_view"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            app:layout_constraintTop_toBottomOf="@id/inner7"
-            android:background="@color/gray" />
+            android:background="@color/gray"
+            app:layout_constraintTop_toBottomOf="@id/inner7" />
 
 
         <LinearLayout
             android:id="@+id/inner8"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_constraintTop_toBottomOf="@id/mid_view"
-            app:layout_constraintHeight_percent="0.1"
+            android:layout_marginTop="10dp"
             android:orientation="horizontal"
-            android:layout_marginTop="10dp">
+            app:layout_constraintHeight_percent="0.15"
+            app:layout_constraintTop_toBottomOf="@id/mid_view">
 
             <EditText
                 android:id="@+id/et_phone"
+                style="@style/dark_blue_15"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:background="@android:color/transparent"
-                android:hint="تلفن"
+                android:hint="@string/phone"
                 android:inputType="phone"
-                android:gravity="right"
                 android:textColorHint="@color/darkGray" />
 
         </LinearLayout>
@@ -346,11 +364,11 @@
             android:layout_width="0dp"
             android:layout_height="2dp"
             android:background="@color/gray"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/inner8"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintVertical_bias="0.2"/>
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/inner8"
+            app:layout_constraintVertical_bias="0.0" />
 
     </android.support.constraint.ConstraintLayout>
 
@@ -404,17 +422,17 @@
             android:layout_height="20dp"
             android:layout_gravity="top"
             android:layout_marginTop="5dp"
-            android:layout_marginLeft="10dp"
+            android:layout_marginEnd="10dp"
             android:src="@drawable/limit_icon_signup_bottom" />
 
         <TextView
             android:id="@+id/tv_register"
             style="@style/title_text"
-            android:gravity="top"
-            android:onClick="OnRegisterClick"
-            android:layout_gravity="top"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:gravity="top"
+            android:onClick="OnRegisterClick"
             android:text="@string/signup_driver" />
 
 

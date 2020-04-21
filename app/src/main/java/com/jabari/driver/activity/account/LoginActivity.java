@@ -1,4 +1,4 @@
-package com.jabari.driver.activity;
+package com.jabari.driver.activity.account;
 
 import android.content.Context;
 import android.content.Intent;
@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -15,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jabari.driver.R;
+import com.jabari.driver.activity.MainActivity;
 import com.jabari.driver.controller.LoginController;
 import com.jabari.driver.global.GeneralResponse;
 import com.jabari.driver.global.GlobalVariables;
@@ -105,7 +105,7 @@ public class LoginActivity extends AppCompatActivity {
 
     public void OnClickSendVerifyCode(View view) {
 
-        startActivity(new Intent(LoginActivity.this,MainActivity.class));
+        startActivity(new Intent(LoginActivity.this, MainActivity.class));
         if (!isValidPhone(et_phoneNum.getText().toString()))
             Toast.makeText(getBaseContext(), "شماره ی وارد شده معتبر نیست!", Toast.LENGTH_SHORT).show();
         else {
@@ -172,8 +172,6 @@ public class LoginActivity extends AppCompatActivity {
         prefManager.setPhoneNum(user);
         GlobalVariables.tok = token;
         GlobalVariables.phoneUser = user;
-        Log.d("tokkk", prefManager.getTOken());
-
 
     }
 }

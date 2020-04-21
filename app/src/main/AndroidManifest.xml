@@ -27,9 +27,9 @@
             <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
         </activity>
-        <activity android:name=".activity.RegisterActivity"/>
-        <activity android:name=".activity.ProfileActivity"/>
-        <activity android:name=".activity.LoginActivity"/>
+        <activity android:name=".activity.account.RegisterActivity"/>
+        <activity android:name=".activity.account.ProfileActivity"/>
+        <activity android:name=".activity.account.LoginActivity"/>
         <activity android:name=".activity.ScoreActivity"/>
         <activity android:name=".activity.SalaryDetailActivity"/>
         <activity android:name=".activity.AreaActivity"/>
