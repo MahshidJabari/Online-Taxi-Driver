@@ -19,6 +19,8 @@ public class LoginController {
 
     ApiInterface.LoginUserCallback loginUserCallback;
     ApiInterface.UserVerifyCodeCallback userVerifyCodeCallback;
+    ApiInterface.CurrentUserCallback currentUserCallback;
+
 
     public LoginController(ApiInterface.UserVerifyCodeCallback userVerifyCodeCallback) {
         this.userVerifyCodeCallback = userVerifyCodeCallback;
@@ -26,6 +28,10 @@ public class LoginController {
 
     public LoginController(ApiInterface.LoginUserCallback loginUserCallback) {
         this.loginUserCallback = loginUserCallback;
+    }
+
+    public LoginController(ApiInterface.CurrentUserCallback currentUserCallback) {
+        this.currentUserCallback = currentUserCallback;
     }
 
     public void Do(final String mobileNum, String verify_code) {
@@ -71,6 +77,27 @@ public class LoginController {
             @Override
             public void onFailure(Call<JsonObject> call, Throwable t) {
                 userVerifyCodeCallback.onFailure("Error!");
+            }
+        });
+    }
+
+    public void getCurrentUser() {
+        Retrofit retrofit = ApiClient.getClient();
+        ApiInterface apiInterface = retrofit.create(ApiInterface.class);
+        Call<JsonObject> call = apiInterface.currentUser();
+        call.enqueue(new Callback<JsonObject>() {
+            @Override
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                if (response.body() != null) {
+                    User user = new Gson().fromJson(response.body().get("user"), User.class);
+                    currentUserCallback.onResponse(user);
+                } else
+                    currentUserCallback.onFailure("null");
+            }
+
+            @Override
+            public void onFailure(Call<JsonObject> call, Throwable t) {
+                currentUserCallback.onFailure("connection");
             }
         });
     }

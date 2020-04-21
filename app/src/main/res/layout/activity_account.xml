@@ -133,7 +133,7 @@
             android:layoutDirection="rtl"
             android:orientation="horizontal"
             android:weightSum="4"
-            app:layout_constraintHeight_percent="0.25"
+            app:layout_constraintHeight_percent="0.2"
             app:layout_constraintTop_toBottomOf="@id/tv1">
 
             <EditText
@@ -150,7 +150,7 @@
                 android:layout_marginRight="15dp"
                 android:layout_weight="1"
                 android:background="@drawable/back_ten_radius_pink"
-                android:drawableRight="@drawable/ic_clear_white_24dp"
+                android:drawableStart="@drawable/ic_clear_white_24dp"
                 android:text="@string/delete" />
         </LinearLayout>
 

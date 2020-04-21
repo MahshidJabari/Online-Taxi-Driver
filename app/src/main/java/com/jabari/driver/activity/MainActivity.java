@@ -6,18 +6,24 @@ import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.provider.Settings;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.jabari.driver.R;
 import com.jabari.driver.activity.account.ProfileActivity;
+import com.jabari.driver.controller.LoginController;
+import com.jabari.driver.network.config.ApiInterface;
+import com.jabari.driver.network.model.User;
 import com.karumi.dexter.BuildConfig;
 
+import es.dmoral.toasty.Toasty;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class MainActivity extends AppCompatActivity {
@@ -26,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     private LinearLayout ln_finance, ln_score, ln_travel_list, ln_area, ln_salary;
     private CheckBox check_net, check_GPS;
     private TextView tv_on_off;
+    private User currentUser;
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -38,7 +45,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         setView();
-        setCheck_net();
+        setLinOnclickListener();
+        setFabOnClickListener();
+        setCheckBox();
+        getCurrentUser();
+
     }
 
     public void setView() {
@@ -49,16 +60,6 @@ public class MainActivity extends AppCompatActivity {
         //set check box
         check_net = findViewById(R.id.check_net);
         check_GPS = findViewById(R.id.check_GPS);
-        if (check_net.isChecked()) {
-
-            tv_on_off.setText("آنلاین");
-
-        } else
-            tv_on_off.setText("آفلاین");
-
-        if (check_GPS.isChecked()) {
-            openSettings();
-        }
 
 
         //set FloatingActionButton view
@@ -71,11 +72,24 @@ public class MainActivity extends AppCompatActivity {
         fab_salary.bringToFront();
         fab_home.bringToFront();
 
+
+        //set linear layout view
+        ln_finance = findViewById(R.id.ln_finance);
+        ln_score = findViewById(R.id.ln_score);
+        ln_travel_list = findViewById(R.id.ln_travel_list);
+        ln_area = findViewById(R.id.ln_area);
+        ln_salary = findViewById(R.id.ln_salary);
+
+
+    }
+
+    private void setFabOnClickListener() {
         //set on click listener to fab
         fab_pro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
+                intent.putExtra("User", (Parcelable) currentUser);
                 startActivity(intent);
 
             }
@@ -98,14 +112,9 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+    }
 
-        //set linear layout view
-        ln_finance = findViewById(R.id.ln_finance);
-        ln_score = findViewById(R.id.ln_score);
-        ln_travel_list = findViewById(R.id.ln_travel_list);
-        ln_area = findViewById(R.id.ln_area);
-        ln_salary = findViewById(R.id.ln_salary);
-
+    private void setLinOnclickListener() {
         //set on click listener to linear layouts
         ln_finance.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -161,24 +170,58 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    private boolean isGPSConnected() {
+        final LocationManager manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
+        if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            return false;
+        }
+        return true;
+    }
+
     private boolean isNetworkConnected() {
         ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         return cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isConnected();
     }
 
-    private void setCheck_net() {
+    private void setCheckBox() {
+
         if (isNetworkConnected()) {
             check_net.setChecked(true);
         } else
             check_net.setChecked(false);
+        if (isGPSConnected())
+            check_GPS.setChecked(true);
+        else
+            check_GPS.setChecked(false);
+
+        check_GPS.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (check_GPS.isChecked()) {
+                    openSettings();
+                }
+
+            }
+        });
     }
 
-    private boolean isGPSConnected(){
-        final LocationManager manager = (LocationManager) getSystemService( Context.LOCATION_SERVICE );
+    private void getCurrentUser() {
 
-        if ( !manager.isProviderEnabled( LocationManager.GPS_PROVIDER ) ) {
-            return false;
-           }
-        return true;
+        ApiInterface.CurrentUserCallback currentUserCallback = new ApiInterface.CurrentUserCallback() {
+            @Override
+            public void onResponse(User user) {
+                currentUser = new User();
+                currentUser = user;
+            }
+
+            @Override
+            public void onFailure(String error) {
+                Toasty.error(MainActivity.this, "خطا در برقراری ارتباط!", Toasty.LENGTH_LONG).show();
+            }
+        };
+        LoginController loginController = new LoginController(currentUserCallback);
+        loginController.getCurrentUser();
     }
+
 }

@@ -17,12 +17,18 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jabari.driver.R;
+import com.jabari.driver.activity.AccountActivity;
+import com.jabari.driver.activity.DebugActivity;
 import com.jabari.driver.activity.MainActivity;
+import com.jabari.driver.controller.UserController;
+import com.jabari.driver.network.config.ApiInterface;
+import com.jabari.driver.network.model.User;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
@@ -38,6 +44,7 @@ import java.io.IOException;
 import java.util.Calendar;
 import java.util.List;
 
+import es.dmoral.toasty.Toasty;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 
@@ -49,9 +56,9 @@ public class ProfileActivity extends AppCompatActivity {
     private ImageView iv_pro;
     private Uri imageUri;
     private Bitmap crupBitmap;
-    private TextView tv_return, tv_email, tv_phone, tv_sheba, tv_support, tv_debug,
-            tv_tutorial, tv_telegram, tv_credit;
-    private ImageView img_return;
+    private TextView tv_email, tv_phone, tv_name, tv_credit, tv_vehicle;
+    private Button btn_sheba, btn_support, btn_debug, btn_telegram, btn_tutorial;
+    private User user;
 
 
     @Override
@@ -68,26 +75,86 @@ public class ProfileActivity extends AppCompatActivity {
         setView();
         requestMultiplePermissions();
         addProfileImage();
-        backOnclick();
+        getCurrentUser();
+        setBtnOnClickListener();
     }
 
     private void setView() {
         btn_addImg = findViewById(R.id.btn_image);
         iv_pro = findViewById(R.id.iv_pro);
-        tv_return = findViewById(R.id.tv_return);
-        img_return = findViewById(R.id.img_return);
         tv_email = findViewById(R.id.tv_email);
         tv_phone = findViewById(R.id.tv_phone);
-        tv_sheba = findViewById(R.id.tv_numSheba);
+        btn_sheba = findViewById(R.id.btn_numSheba);
         tv_credit = findViewById(R.id.tv_creditcard);
-        tv_debug = findViewById(R.id.tv_debugnum);
-        tv_support = findViewById(R.id.tv_support);
-        tv_telegram = findViewById(R.id.tv_telegramchannel);
-        tv_tutorial = findViewById(R.id.tv_tutorial);
+        btn_debug = findViewById(R.id.btn_debugnum);
+        btn_support = findViewById(R.id.btn_support);
+        btn_telegram = findViewById(R.id.btn_telegramchannel);
+        btn_tutorial = findViewById(R.id.btn_tutorial);
+        tv_name = findViewById(R.id.tv_name);
+        tv_vehicle = findViewById(R.id.tv_vehicle_type);
+
+        tv_email.setText(user.getEmail());
+        tv_phone.setText(user.getMobileNum());
+        tv_name.setText(user.getName());
 
     }
 
-    public void addProfileImage() {
+    private void setBtnOnClickListener() {
+        btn_sheba.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(ProfileActivity.this, AccountActivity.class));
+            }
+        });
+        btn_support.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                cullSupport();
+            }
+        });
+        btn_debug.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(ProfileActivity.this, DebugActivity.class));
+            }
+        });
+        btn_telegram.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("tg://resolve?domain=partsilicon"));
+                startActivity(intent);
+            }
+        });
+        btn_tutorial.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("tg://resolve?domain=partsilicon"));
+                startActivity(intent);
+            }
+        });
+    }
+
+    private void cullSupport() {
+        ApiInterface.callSupportCallback callSupportCallback = new ApiInterface.callSupportCallback() {
+            @Override
+            public void onResponse(String phone) {
+                Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + phone));
+                startActivity(intent);
+            }
+
+            @Override
+            public void onFailure(String error) {
+                if (error.equals("connection"))
+                    Toasty.error(ProfileActivity.this, "خطا در برقراری ارتباط", Toasty.LENGTH_LONG).show();
+                if (error.equals("null"))
+                    Toasty.error(ProfileActivity.this, "درخواست با خطا مواجه شد", Toasty.LENGTH_LONG).show();
+            }
+        };
+        UserController userController = new UserController(callSupportCallback);
+        userController.call();
+    }
+
+    private void addProfileImage() {
         btn_addImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -97,7 +164,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     }
 
-    public void showPictureDialog() {
+    private void showPictureDialog() {
         AlertDialog.Builder pictureDialog = new AlertDialog.Builder(this);
         pictureDialog.setTitle("عکس پروفایل را انتخاب کنید!");
         String[] pictureDialogItems = {
@@ -120,14 +187,14 @@ public class ProfileActivity extends AppCompatActivity {
         pictureDialog.show();
     }
 
-    public void choosePhotoFromGallary() {
+    private void choosePhotoFromGallary() {
         Intent galleryIntent = new Intent(Intent.ACTION_PICK,
                 android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
 
         startActivityForResult(galleryIntent, GALLERY);
     }
 
-    public void takePhotoFromCamera() {
+    private void takePhotoFromCamera() {
         ContentValues values = new ContentValues();
         values.put(MediaStore.Images.Media.TITLE, "New Picture");
         values.put(MediaStore.Images.Media.DESCRIPTION, "From your Camera");
@@ -216,7 +283,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     }
 
-    public void requestMultiplePermissions() {
+    private void requestMultiplePermissions() {
         Dexter.withActivity(this)
                 .withPermissions(
                         Manifest.permission.CAMERA,
@@ -251,7 +318,7 @@ public class ProfileActivity extends AppCompatActivity {
                 .check();
     }
 
-    public String saveImage(Bitmap myBitmap) {
+    private String saveImage(Bitmap myBitmap) {
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         myBitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
         File wallpaperDirectory = new File(
@@ -280,23 +347,16 @@ public class ProfileActivity extends AppCompatActivity {
         return "";
     }
 
-    private void backOnclick() {
-        tv_return.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(ProfileActivity.this, MainActivity.class));
-            }
-        });
-        img_return.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(ProfileActivity.this, MainActivity.class));
-            }
-        });
+    public void backOnclick(View view) {
+
+        startActivity(new Intent(ProfileActivity.this, MainActivity.class));
 
     }
 
-    private void getCurrentUser(){
-
+    private void getCurrentUser() {
+        if (getIntent().getExtras() != null) {
+            user = getIntent().getExtras().getParcelable("user");
+        } else
+            Toasty.error(ProfileActivity.this, "خطا در برقراری ارتباط!", Toasty.LENGTH_LONG).show();
     }
 }

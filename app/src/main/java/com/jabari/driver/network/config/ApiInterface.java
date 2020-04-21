@@ -9,6 +9,7 @@ import com.jabari.driver.network.model.User;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
 
 public interface ApiInterface {
@@ -58,6 +59,24 @@ public interface ApiInterface {
 
     interface SignUpCallback {
         void onResponse(String token);
+
+        void onFailure(String error);
+    }
+
+    @GET("driver")
+    Call<JsonObject> currentUser();
+
+    interface CurrentUserCallback {
+        void onResponse(User user);
+
+        void onFailure(String error);
+    }
+
+    @GET("general/support")
+    Call<JsonObject> call_support();
+
+    interface callSupportCallback {
+        void onResponse(String phone);
 
         void onFailure(String error);
     }

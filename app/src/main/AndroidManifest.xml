@@ -38,6 +38,7 @@
         <activity android:name=".activity.RewardActivity"/>
         <activity android:name=".activity.MainActivity"/>
         <activity android:name=".activity.AccountActivity"/>
+        <activity android:name=".activity.DebugActivity"/>
     </application>
 
 </manifest>
