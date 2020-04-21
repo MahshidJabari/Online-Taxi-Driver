@@ -25,8 +25,11 @@ import android.widget.Toast;
 import com.jabari.driver.R;
 import com.jabari.driver.activity.AccountActivity;
 import com.jabari.driver.activity.DebugActivity;
+import com.jabari.driver.activity.FirstActivity;
 import com.jabari.driver.activity.MainActivity;
 import com.jabari.driver.controller.UserController;
+import com.jabari.driver.global.GlobalVariables;
+import com.jabari.driver.global.PrefManager;
 import com.jabari.driver.network.config.ApiInterface;
 import com.jabari.driver.network.model.User;
 import com.karumi.dexter.Dexter;
@@ -350,6 +353,20 @@ public class ProfileActivity extends AppCompatActivity {
     public void backOnclick(View view) {
 
         startActivity(new Intent(ProfileActivity.this, MainActivity.class));
+
+    }
+
+    public void logout(View view) {
+        removePreferences();
+        startActivity(new Intent(ProfileActivity.this, FirstActivity.class));
+    }
+
+    private void removePreferences() {
+
+        PrefManager prefManager = new PrefManager(this);
+        prefManager.removeToken();
+        prefManager.removeUser();
+        GlobalVariables.tok = "";
 
     }
 

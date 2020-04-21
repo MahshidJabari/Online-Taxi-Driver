@@ -494,6 +494,7 @@
             android:layout_gravity="top"
             android:layout_marginTop="5dp"
             android:layout_marginEnd="10dp"
+            android:onClick="logout"
             android:src="@drawable/limit_icon_signup_bottom" />
 
         <TextView
@@ -502,6 +503,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="top"
             android:gravity="top"
+            android:onClick="logout"
             android:text="@string/exit_profile" />
 
 
