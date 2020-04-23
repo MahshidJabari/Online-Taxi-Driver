@@ -1,4 +1,4 @@
-package com.jabari.driver.activity;
+package com.jabari.driver.activity.account;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,8 +10,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.jabari.driver.R;
-import com.jabari.driver.activity.account.LoginActivity;
-import com.jabari.driver.activity.account.RegisterActivity;
+import com.jabari.driver.activity.main.MainActivity;
 import com.jabari.driver.global.GlobalVariables;
 import com.jabari.driver.global.PrefManager;
 

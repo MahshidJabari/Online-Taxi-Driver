@@ -3,7 +3,6 @@ package com.jabari.driver.network.config;
 import android.location.Location;
 
 import com.google.gson.JsonObject;
-import com.jabari.driver.global.GeneralResponse;
 import com.jabari.driver.network.model.Coordinate;
 import com.jabari.driver.network.model.User;
 
@@ -20,7 +19,7 @@ public interface ApiInterface {
     Call<JsonObject> getVerifyCode(@Field("mobile") String PhoneNumber);
 
     interface UserVerifyCodeCallback {
-        void onResponse(GeneralResponse generalResponse);
+        void onResponse(String success);
 
         void onFailure(String error);
     }
@@ -31,7 +30,7 @@ public interface ApiInterface {
                                  @Field("verifyCode") String verifyCode);
 
     interface LoginUserCallback {
-        void onResponse(GeneralResponse generalResponse, User user, String token);
+        void onResponse(User user, String token);
 
         void onFailure(String error);
     }
@@ -103,5 +102,15 @@ public interface ApiInterface {
 
         void onFailure(String error);
     }
+
+    @GET("general/laws")
+    Call<JsonObject> get_rules();
+
+    interface GetLawsCallback {
+        void onResponse(String laws);
+
+        void onFailure(String error);
+    }
+
 
 }

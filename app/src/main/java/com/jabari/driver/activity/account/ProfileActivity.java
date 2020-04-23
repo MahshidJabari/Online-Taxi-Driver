@@ -23,10 +23,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jabari.driver.R;
-import com.jabari.driver.activity.AccountActivity;
 import com.jabari.driver.activity.DebugActivity;
-import com.jabari.driver.activity.FirstActivity;
-import com.jabari.driver.activity.MainActivity;
+import com.jabari.driver.activity.main.MainActivity;
 import com.jabari.driver.controller.UserController;
 import com.jabari.driver.global.GlobalVariables;
 import com.jabari.driver.global.PrefManager;

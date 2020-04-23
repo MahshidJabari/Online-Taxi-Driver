@@ -5,6 +5,7 @@ import com.google.gson.JsonObject;
 import com.jabari.driver.network.config.ApiClient;
 import com.jabari.driver.network.config.ApiInterface;
 import com.jabari.driver.network.model.Coordinate;
+import com.jabari.driver.network.model.User;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -16,6 +17,7 @@ public class UserController {
     ApiInterface.callSupportCallback callSupportCallback;
     ApiInterface.UpdateLocationCallback updateLocationCallback;
     ApiInterface.VisibilityCallback visibilityCallback;
+    ApiInterface.CurrentUserCallback currentUserCallback;
 
     public UserController(ApiInterface.callSupportCallback callSupportCallback) {
         this.callSupportCallback = callSupportCallback;
@@ -29,6 +31,9 @@ public class UserController {
         this.visibilityCallback = visibilityCallback;
     }
 
+    public UserController(ApiInterface.CurrentUserCallback currentUserCallback) {
+        this.currentUserCallback = currentUserCallback;
+    }
     public void call() {
         Retrofit retrofit = ApiClient.getClient();
         ApiInterface apiInterfaces = retrofit.create(ApiInterface.class);
@@ -91,5 +96,26 @@ public class UserController {
             }
         });
 
+    }
+
+    public void getCurrentUser() {
+        Retrofit retrofit = ApiClient.getClient();
+        ApiInterface apiInterface = retrofit.create(ApiInterface.class);
+        Call<JsonObject> call = apiInterface.currentUser();
+        call.enqueue(new Callback<JsonObject>() {
+            @Override
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                if (response.body() != null) {
+                    User user = new Gson().fromJson(response.body().get("user"), User.class);
+                    currentUserCallback.onResponse(user);
+                } else
+                    currentUserCallback.onFailure("null");
+            }
+
+            @Override
+            public void onFailure(Call<JsonObject> call, Throwable t) {
+                currentUserCallback.onFailure("connection");
+            }
+        });
     }
 }

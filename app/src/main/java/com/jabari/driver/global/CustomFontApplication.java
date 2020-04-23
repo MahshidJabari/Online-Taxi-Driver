@@ -1,8 +1,6 @@
 package com.jabari.driver.global;
 
-
-import android.app.Application;
-import android.support.multidex.MultiDexApplication;
+import androidx.multidex.MultiDexApplication;
 
 import com.jabari.driver.R;
 

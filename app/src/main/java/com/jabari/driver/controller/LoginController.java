@@ -1,10 +1,8 @@
 package com.jabari.driver.controller;
 
-import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import com.jabari.driver.global.GeneralResponse;
 import com.jabari.driver.global.GlobalVariables;
 import com.jabari.driver.network.config.ApiClient;
 import com.jabari.driver.network.config.ApiInterface;
@@ -19,7 +17,7 @@ public class LoginController {
 
     ApiInterface.LoginUserCallback loginUserCallback;
     ApiInterface.UserVerifyCodeCallback userVerifyCodeCallback;
-    ApiInterface.CurrentUserCallback currentUserCallback;
+    ApiInterface.GetLawsCallback getLawsCallback;
 
 
     public LoginController(ApiInterface.UserVerifyCodeCallback userVerifyCodeCallback) {
@@ -30,8 +28,9 @@ public class LoginController {
         this.loginUserCallback = loginUserCallback;
     }
 
-    public LoginController(ApiInterface.CurrentUserCallback currentUserCallback) {
-        this.currentUserCallback = currentUserCallback;
+
+    public LoginController(ApiInterface.GetLawsCallback getLawsCallback) {
+        this.getLawsCallback = getLawsCallback;
     }
 
     public void Do(final String mobileNum, String verify_code) {
@@ -44,19 +43,18 @@ public class LoginController {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                 if (response.isSuccessful()) {
-                    GeneralResponse generalResponse = new GeneralResponse(response.body());
                     User user = new Gson().fromJson(response.body().get("user"), User.class);
                     String token = new Gson().fromJson(response.body().get("jwtAccessToken"), String.class);
                     GlobalVariables.tok = token;
-                    Log.d("tok", token);
 
-                    loginUserCallback.onResponse(generalResponse, user, token);
-                }
+                    loginUserCallback.onResponse(user, token);
+                } else
+                    getLawsCallback.onFailure("null");
             }
 
             @Override
             public void onFailure(Call<JsonObject> call, Throwable t) {
-                loginUserCallback.onFailure("Error!");
+                loginUserCallback.onFailure("connection");
             }
         });
     }
@@ -69,36 +67,41 @@ public class LoginController {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                 if (response.isSuccessful()) {
-                    GeneralResponse generalResponse = new GeneralResponse(response.body());
-                    userVerifyCodeCallback.onResponse(generalResponse);
-                }
+                    userVerifyCodeCallback.onResponse("code");
+                } else
+                    getLawsCallback.onFailure("null");
             }
 
             @Override
             public void onFailure(Call<JsonObject> call, Throwable t) {
-                userVerifyCodeCallback.onFailure("Error!");
+                userVerifyCodeCallback.onFailure("connection");
             }
         });
     }
 
-    public void getCurrentUser() {
+    public void getLaws() {
+
         Retrofit retrofit = ApiClient.getClient();
         ApiInterface apiInterface = retrofit.create(ApiInterface.class);
-        Call<JsonObject> call = apiInterface.currentUser();
+        Call<JsonObject> call = apiInterface.get_rules();
         call.enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                 if (response.body() != null) {
-                    User user = new Gson().fromJson(response.body().get("user"), User.class);
-                    currentUserCallback.onResponse(user);
+                    String txt = new Gson().fromJson(response.body().get("laws"), String.class);
+
+                    getLawsCallback.onResponse(txt);
                 } else
-                    currentUserCallback.onFailure("null");
+                    getLawsCallback.onFailure("null");
             }
 
             @Override
             public void onFailure(Call<JsonObject> call, Throwable t) {
-                currentUserCallback.onFailure("connection");
+                getLawsCallback.onFailure("connection");
+
             }
         });
+
     }
+
 }

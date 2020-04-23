@@ -1,5 +1,6 @@
 package com.jabari.driver.activity.account;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,12 +12,11 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.jabari.driver.R;
-import com.jabari.driver.activity.MainActivity;
+import com.jabari.driver.activity.main.MainActivity;
 import com.jabari.driver.controller.LoginController;
-import com.jabari.driver.global.GeneralResponse;
+import com.jabari.driver.global.ExceptionHandler;
 import com.jabari.driver.global.GlobalVariables;
 import com.jabari.driver.global.PrefManager;
 import com.jabari.driver.network.config.ApiInterface;
@@ -31,6 +31,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText et_phoneNum, et_verify_code;
     private Button btn_send;
     private FloatingActionButton fab_login;
+    private ExceptionHandler handler;
     private CheckBox checkBox;
     private TextView tv_rules;
 
@@ -47,7 +48,6 @@ public class LoginActivity extends AppCompatActivity {
         setViews();
         fabOnclick();
         setFab_loginUnClickable();
-        directToWeb();
     }
 
     private void setViews() {
@@ -61,19 +61,18 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    private void directToWeb() {
-        // tv_rules.setMovementMethod(LinkMovementMethod.getInstance());
-    }
-
     private void fabOnclick() {
         fab_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (GlobalVariables.getVerify) {
-                    check_login(et_phoneNum.getText().toString()
-                            , et_verify_code.getText().toString());
+                    if (checkBox.isChecked())
+                        check_login(et_phoneNum.getText().toString()
+                                , et_verify_code.getText().toString());
+                    else
+                        handler.generateError("law");
                 } else
-                    Toast.makeText(LoginActivity.this, "کد فعالسازی به درستی وارد نشده!", Toast.LENGTH_SHORT).show();
+                    handler.generateError("wrong code");
             }
         });
 
@@ -82,7 +81,7 @@ public class LoginActivity extends AppCompatActivity {
     private boolean isValidPhone(String phone) {
 
         if (!Pattern.matches("^0(9)\\d{9}$", phone)) {
-            Toast.makeText(LoginActivity.this, "شماره ی موبایل اشتباه وارد شده!", Toast.LENGTH_LONG).show();
+            handler.generateError("wrong phone");
             et_phoneNum.getText().clear();
             btn_send.setBackground(getResources().getDrawable(R.drawable.back_thirty_radius_dark_gray));
 
@@ -107,17 +106,16 @@ public class LoginActivity extends AppCompatActivity {
 
         startActivity(new Intent(LoginActivity.this, MainActivity.class));
         if (!isValidPhone(et_phoneNum.getText().toString()))
-            Toast.makeText(getBaseContext(), "شماره ی وارد شده معتبر نیست!", Toast.LENGTH_SHORT).show();
+            handler.generateError("invalid phone");
         else {
             view.setBackgroundDrawable(getResources().getDrawable(R.drawable.back_fifty_radius_gray));
             final String phoneNumber = et_phoneNum.getText().toString();
             LoginController loginController = new LoginController(new ApiInterface.UserVerifyCodeCallback() {
                 @Override
-                public void onResponse(GeneralResponse generalResponse) {
+                public void onResponse(String success) {
                     GlobalVariables.getVerify = true;
                     setFab_loginClickable();
-                    Toast.makeText(LoginActivity.this, "کد فعالسازی ارسال شد", Toast.LENGTH_LONG).show();
-                    Toast.makeText(LoginActivity.this, phoneNumber.substring(6, 11), Toast.LENGTH_LONG).show();
+                    handler.generateSuccess(success);
 
                 }
 
@@ -125,7 +123,7 @@ public class LoginActivity extends AppCompatActivity {
                 public void onFailure(String error) {
                     GlobalVariables.getVerify = false;
                     setFab_loginUnClickable();
-                    Toast.makeText(LoginActivity.this, "مجددا تلاش کنید", Toast.LENGTH_LONG).show();
+                    handler.generateError(error);
                 }
             });
 
@@ -140,15 +138,10 @@ public class LoginActivity extends AppCompatActivity {
         ApiInterface.LoginUserCallback loginUserCallback = new ApiInterface.LoginUserCallback() {
 
             @Override
-            public void onResponse(GeneralResponse generalResponse, User user, String token) {
+            public void onResponse(User user, String token) {
 
-
-                if (generalResponse.getSuccess()) {
-
-                    saveLoginPrefrences(token, String.valueOf(user.getMobileNum()));
-
-                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                }
+                saveLoginPrefrences(token, String.valueOf(user.getMobileNum()));
+                startActivity(new Intent(LoginActivity.this, MainActivity.class));
             }
 
             @Override
@@ -156,6 +149,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 btn_send.setClickable(true);
                 btn_send.setBackground(getResources().getDrawable(R.drawable.back_thirty_radius_blue));
+                handler.generateError(error);
 
             }
 
@@ -173,5 +167,37 @@ public class LoginActivity extends AppCompatActivity {
         GlobalVariables.tok = token;
         GlobalVariables.phoneUser = user;
 
+    }
+
+    public void getLaws(View view) {
+
+        ApiInterface.GetLawsCallback getLawsCallback = new ApiInterface.GetLawsCallback() {
+            @Override
+            public void onResponse(String laws) {
+
+                final Dialog dialog = new Dialog(LoginActivity.this);
+                dialog.setContentView(R.layout.alertdialog);
+                TextView body = dialog.findViewById(R.id.tv_dialog);
+                body.setText(laws);
+                Button button = dialog.findViewById(R.id.btn_ok);
+                dialog.show();
+                button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+                    }
+                });
+
+
+            }
+
+            @Override
+            public void onFailure(String error) {
+                handler.generateError(error);
+
+            }
+        };
+        LoginController loginLawController = new LoginController(getLawsCallback);
+        loginLawController.getLaws();
     }
 }

@@ -1,12 +1,10 @@
-package com.jabari.driver.activity;
+package com.jabari.driver.activity.main;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
-import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
 import android.net.ConnectivityManager;
@@ -17,15 +15,13 @@ import android.os.Parcelable;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
+
 
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.ResolvableApiException;
@@ -43,8 +39,11 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.jabari.driver.R;
+import com.jabari.driver.activity.AreaActivity;
+import com.jabari.driver.activity.HistoryActivity;
+import com.jabari.driver.activity.SalaryDetailActivity;
+import com.jabari.driver.activity.ScoreActivity;
 import com.jabari.driver.activity.account.ProfileActivity;
-import com.jabari.driver.controller.LoginController;
 import com.jabari.driver.controller.UserController;
 import com.jabari.driver.global.ExceptionHandler;
 import com.jabari.driver.network.config.ApiInterface;
@@ -57,10 +56,7 @@ import com.karumi.dexter.listener.PermissionDeniedResponse;
 import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.single.PermissionListener;
 
-import java.text.DateFormat;
-import java.util.Date;
 
-import es.dmoral.toasty.Toasty;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class MainActivity extends AppCompatActivity {
@@ -73,15 +69,13 @@ public class MainActivity extends AppCompatActivity {
     private static final long UPDATE_INTERVAL_IN_MILLISECONDS = 300000;
     private static final long FASTEST_UPDATE_INTERVAL_IN_MILLISECONDS = 300000;
     final int REQUEST_CODE = 123;
-    int PERMISSION_ID = 44;
     private Location userLocation;
     private FusedLocationProviderClient fusedLocationClient;
     private SettingsClient settingsClient;
     private LocationRequest locationRequest;
     private LocationSettingsRequest locationSettingsRequest;
     private LocationCallback locationCallback;
-    private Boolean mRequestingLocationUpdates;
-    private String lastUpdateTime;
+
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -246,10 +240,7 @@ public class MainActivity extends AppCompatActivity {
     private boolean isGPSConnected() {
         final LocationManager manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
-        if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            return false;
-        }
-        return true;
+        return manager.isProviderEnabled(LocationManager.GPS_PROVIDER);
     }
 
     private boolean isNetworkConnected() {
@@ -293,7 +284,7 @@ public class MainActivity extends AppCompatActivity {
                 handler.generateError(error);
             }
         };
-        LoginController loginController = new LoginController(currentUserCallback);
+        UserController loginController = new UserController(currentUserCallback);
         loginController.getCurrentUser();
     }
 
@@ -325,7 +316,6 @@ public class MainActivity extends AppCompatActivity {
                 // location is received
                 userLocation = locationResult.getLastLocation();
                 Log.d("location", userLocation.toString());
-                lastUpdateTime = DateFormat.getTimeInstance().format(new Date());
 
                 Coordinate coordinate = new Coordinate();
                 coordinate.setLatitude(String.valueOf(userLocation.getLatitude()));
@@ -333,8 +323,6 @@ public class MainActivity extends AppCompatActivity {
                 setDriverVisible(coordinate, true);
             }
         };
-
-        mRequestingLocationUpdates = false;
 
         locationRequest = new LocationRequest();
         locationRequest.setInterval(UPDATE_INTERVAL_IN_MILLISECONDS);
@@ -375,7 +363,7 @@ public class MainActivity extends AppCompatActivity {
                                     ResolvableApiException rae = (ResolvableApiException) e;
                                     rae.startResolutionForResult(MainActivity.this, REQUEST_CODE);
                                 } catch (IntentSender.SendIntentException sie) {
-
+                                    handler.generateError("connection");
                                 }
                                 break;
                             case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
@@ -409,7 +397,6 @@ public class MainActivity extends AppCompatActivity {
                 .withListener(new PermissionListener() {
                     @Override
                     public void onPermissionGranted(PermissionGrantedResponse response) {
-                        mRequestingLocationUpdates = true;
                         startLocationUpdates();
                     }
 
@@ -430,21 +417,6 @@ public class MainActivity extends AppCompatActivity {
                 }).check();
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        switch (requestCode) {
-            // Check for the integer request code originally supplied to startResolutionForResult().
-            case REQUEST_CODE:
-                switch (resultCode) {
-                    case Activity.RESULT_OK:
-                        break;
-                    case Activity.RESULT_CANCELED:
-                        mRequestingLocationUpdates = false;
-                        break;
-                }
-                break;
-        }
-    }
 
 
     private void setDriverVisible(Coordinate coordinate, Boolean visibility) {

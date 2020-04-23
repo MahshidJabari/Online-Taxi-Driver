@@ -74,8 +74,9 @@
     <string name="mobile_num">شماره تلفن همراه</string>
     <string name="sheba_num">شماره شبا</string>
     <string name="ready">آماده ی پذیرش درخواست هستم</string>
- <!--   <string name="linkToSite"><a href="">قوانین و مقررات</a></string>
- -->
+    <string name="agree">قبول دارم</string>
+    <!--   <string name="linkToSite"><a href="">قوانین و مقررات</a></string>
+    -->
     <string name="linkToSite">قوانین و مقررات</string>
     <string name="call_support">تماس با پشتیبانی</string>
     <string name="learn">آموزش کار با اپلیکیشن</string>
@@ -89,10 +90,15 @@
     <string name="exp_connection">خطا در برقراری ارتباط</string>
     <string name="exp_update_location_stopped">مکان یابی متوقف شد!</string>
     <string name="exp_location_setting">مکان یاب دستگاه خاموش است</string>
+    <string name="exp_invalid_phone">شماره تلفن وارد شده صحیح نمی باشد</string>
+    <string name="exp_wrong_code">کد فعالسازی وارد شده اشتباه است</string>
+    <string name="exp_wrong_phone">شماره همراه وارد شده صحیح نیست</string>
+    <string name="exp_law">لطفا قوانین و مقررات را تایید کنید</string>
 
     <!-- success messages    -->
     <string name="success_visibility">درخواست های سفر برای شما ارسال می شود</string>
-    </resources>
+    <string name="success_code">کد فعالسازی با موفقیت ارسال شد</string>
+</resources>
 
 
 

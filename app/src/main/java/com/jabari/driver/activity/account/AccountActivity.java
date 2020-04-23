@@ -1,4 +1,4 @@
-package com.jabari.driver.activity;
+package com.jabari.driver.activity.account;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

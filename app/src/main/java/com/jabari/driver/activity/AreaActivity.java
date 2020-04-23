@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.jabari.driver.R;
+import com.jabari.driver.activity.main.MainActivity;
 
 import org.neshan.core.LngLat;
 import org.neshan.core.Range;
@@ -97,7 +98,7 @@ public class AreaActivity extends AppCompatActivity {
         tv_return.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(AreaActivity.this,MainActivity.class));
+                startActivity(new Intent(AreaActivity.this, MainActivity.class));
             }
         });
         img_return.setOnClickListener(new View.OnClickListener() {

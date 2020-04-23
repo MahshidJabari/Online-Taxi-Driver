@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jabari.driver.R;
+import com.jabari.driver.activity.main.MainActivity;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
@@ -42,7 +43,7 @@ public class HistoryActivity extends AppCompatActivity {
         tv_return.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(HistoryActivity.this,MainActivity.class));
+                startActivity(new Intent(HistoryActivity.this, MainActivity.class));
             }
         });
         img_return.setOnClickListener(new View.OnClickListener() {

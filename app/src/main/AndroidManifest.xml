@@ -20,7 +20,7 @@
         android:theme="@style/AppTheme">
         <activity android:name=".activity.TravelDetailsActivity"/>
 
-        <activity android:name=".activity.FirstActivity">
+        <activity android:name=".activity.account.FirstActivity">
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />
 
@@ -34,10 +34,10 @@
         <activity android:name=".activity.SalaryDetailActivity"/>
         <activity android:name=".activity.AreaActivity"/>
         <activity android:name=".activity.HistoryActivity"/>
-        <activity android:name=".activity.SalaryActivity"/>
-        <activity android:name=".activity.RewardActivity"/>
-        <activity android:name=".activity.MainActivity"/>
-        <activity android:name=".activity.AccountActivity"/>
+        <activity android:name=".activity.main.SalaryActivity"/>
+        <activity android:name=".activity.main.RewardActivity"/>
+        <activity android:name=".activity.main.MainActivity"/>
+        <activity android:name=".activity.account.AccountActivity"/>
         <activity android:name=".activity.DebugActivity"/>
     </application>
 

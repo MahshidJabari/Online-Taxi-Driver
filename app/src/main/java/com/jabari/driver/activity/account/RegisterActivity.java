@@ -10,8 +10,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.jabari.driver.R;
-import com.jabari.driver.activity.FirstActivity;
-import com.jabari.driver.activity.MainActivity;
+import com.jabari.driver.activity.main.MainActivity;
 import com.jabari.driver.controller.RegisterController;
 import com.jabari.driver.global.GlobalVariables;
 import com.jabari.driver.global.PrefManager;
