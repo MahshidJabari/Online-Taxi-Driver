@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.jabari.driver.network.config.ApiClient;
 import com.jabari.driver.network.config.ApiInterface;
+import com.jabari.driver.network.model.Coordinate;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -13,9 +14,19 @@ import retrofit2.Retrofit;
 public class UserController {
 
     ApiInterface.callSupportCallback callSupportCallback;
+    ApiInterface.UpdateLocationCallback updateLocationCallback;
+    ApiInterface.VisibilityCallback visibilityCallback;
 
     public UserController(ApiInterface.callSupportCallback callSupportCallback) {
         this.callSupportCallback = callSupportCallback;
+    }
+
+    public UserController(ApiInterface.UpdateLocationCallback updateLocationCallback) {
+        this.updateLocationCallback = updateLocationCallback;
+    }
+
+    public UserController(ApiInterface.VisibilityCallback visibilityCallback) {
+        this.visibilityCallback = visibilityCallback;
     }
 
     public void call() {
@@ -37,5 +48,48 @@ public class UserController {
                 callSupportCallback.onFailure("connection");
             }
         });
+    }
+
+    public void updateLocation(Coordinate coordinate) {
+        Retrofit retrofit = ApiClient.getClient();
+        ApiInterface apiInterface = retrofit.create(ApiInterface.class);
+        Call<Coordinate> call = apiInterface.updateUserLocation(coordinate.getLatitude(), coordinate.getLongitude());
+        call.enqueue(new Callback<Coordinate>() {
+            @Override
+            public void onResponse(Call<Coordinate> call, Response<Coordinate> response) {
+                if (response.body() != null) {
+                    String latitude = new Gson().fromJson(response.body().getLatitude().toString(), String.class);
+                    updateLocationCallback.onResponse();
+                } else
+                    updateLocationCallback.onFailure("null");
+            }
+
+            @Override
+            public void onFailure(Call<Coordinate> call, Throwable t) {
+                updateLocationCallback.onFailure("connection");
+            }
+        });
+    }
+
+    public void setVisibility(Coordinate coordinate, Boolean visibility) {
+        Retrofit retrofit = ApiClient.getClient();
+        ApiInterface apiInterface = retrofit.create(ApiInterface.class);
+        Call<JsonObject> call = apiInterface.setVisibility(visibility, coordinate.getLatitude(), coordinate.getLongitude());
+        call.enqueue(new Callback<JsonObject>() {
+            @Override
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                if (response.body() != null) {
+                    visibilityCallback.onResponse("visibility");
+
+                } else
+                    visibilityCallback.onFailure("null");
+            }
+
+            @Override
+            public void onFailure(Call<JsonObject> call, Throwable t) {
+                visibilityCallback.onFailure("connection");
+            }
+        });
+
     }
 }

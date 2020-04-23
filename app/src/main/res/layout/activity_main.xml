@@ -92,6 +92,7 @@
             android:button="@drawable/custom_checkbox"
             android:layoutDirection="rtl"
             android:paddingStart="10dp"
+            android:paddingEnd="10dp"
             android:text="اینترنت"
             android:textColor="@color/color10"
             android:textSize="15sp"
@@ -148,8 +149,8 @@
             android:layout_gravity="center"
             android:layout_marginStart="15dp"
             android:layout_weight="1"
-            android:layoutDirection="ltr"
             android:button="@drawable/custom_checkbox"
+            android:layoutDirection="ltr"
             android:paddingStart="10dp"
             android:paddingEnd="10dp"
             android:text="GPS"
@@ -297,13 +298,19 @@
             android:textStyle="bold" />
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/tv_online_offline"
-        style="@style/common_text"
+    <CheckBox
+        android:id="@+id/cb_ready"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@drawable/back_radius_thirty_gray"
-        android:gravity="center"
+        android:button="@drawable/custom_checkbox"
+        android:gravity="start"
+        android:layoutDirection="rtl"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:text="@string/ready"
+        android:textColor="@color/color10"
+        android:textSize="15sp"
+        android:textStyle="bold"
         android:translationY="-40dp"
         app:layout_constraintBottom_toTopOf="@id/guideline_floatingBtn_top"
         app:layout_constraintHeight_percent="0.05"

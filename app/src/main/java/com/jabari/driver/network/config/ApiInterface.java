@@ -4,6 +4,7 @@ import android.location.Location;
 
 import com.google.gson.JsonObject;
 import com.jabari.driver.global.GeneralResponse;
+import com.jabari.driver.network.model.Coordinate;
 import com.jabari.driver.network.model.User;
 
 import retrofit2.Call;
@@ -11,6 +12,7 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 
 public interface ApiInterface {
     @FormUrlEncoded
@@ -77,6 +79,27 @@ public interface ApiInterface {
 
     interface callSupportCallback {
         void onResponse(String phone);
+
+        void onFailure(String error);
+    }
+
+    @PUT("driver/location")
+    Call<Coordinate> updateUserLocation(@Field("latitude") String latitude,
+                                        @Field("longitude") String longitude);
+
+    interface UpdateLocationCallback {
+        void onResponse();
+
+        void onFailure(String error);
+    }
+
+    @PUT("driver/visibility")
+    Call<JsonObject> setVisibility(@Field("visible") boolean visible,
+                                   @Field("latitude") String latitude,
+                                   @Field("longitude") String longitude);
+
+    interface VisibilityCallback {
+        void onResponse(String success);
 
         void onFailure(String error);
     }
