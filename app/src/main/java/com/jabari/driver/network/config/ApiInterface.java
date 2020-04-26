@@ -3,6 +3,7 @@ package com.jabari.driver.network.config;
 import android.location.Location;
 
 import com.google.gson.JsonObject;
+import com.jabari.driver.network.model.Accounting;
 import com.jabari.driver.network.model.Coordinate;
 import com.jabari.driver.network.model.User;
 
@@ -114,5 +115,22 @@ public interface ApiInterface {
         void onFailure(String error);
     }
 
+    @GET("driver/accounting")
+    Call<Accounting> accounting();
+
+    interface AccountingCallback {
+        void onResponse(Accounting accounting);
+
+        void onFailure(String error);
+    }
+
+    @GET("driver/star")
+    Call<JsonObject> star();
+
+    interface StarCallback {
+        void onResponse(String laws);
+
+        void onFailure(String error);
+    }
 
 }

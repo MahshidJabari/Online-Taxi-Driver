@@ -3,27 +3,35 @@ package com.jabari.driver.activity.main;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+
 import androidx.annotation.Nullable;
+
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jabari.driver.R;
 import com.jabari.driver.activity.account.ProfileActivity;
+import com.jabari.driver.controller.DetailController;
 import com.jabari.driver.global.DigitConverter;
+import com.jabari.driver.global.ExceptionHandler;
+import com.jabari.driver.network.config.ApiInterface;
+import com.jabari.driver.network.model.Accounting;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class SalaryActivity extends AppCompatActivity {
 
     private FloatingActionButton fab_pro, fab_reward, fab_salary, fab_home;
-    private TextView today_income,month_income,week_income,today_online,week_online,month_online
-            ,whole_income,coms,days_remain;
+    private TextView today_income, month_income, week_income, today_online, week_online, month_online, whole_income, commission, days_remain;
 
     private TextView tv_return;
     private ImageView img_return;
+    private ExceptionHandler handler;
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -34,11 +42,13 @@ public class SalaryActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_salary);
+        handler = new ExceptionHandler(this);
 
         setView();
         onClickFab();
         setTextView();
         backOnclick();
+        getAccounting();
     }
 
     private void setView() {
@@ -63,13 +73,13 @@ public class SalaryActivity extends AppCompatActivity {
         month_income = findViewById(R.id.tv_month_income);
         month_online = findViewById(R.id.tv_month_online);
         whole_income = findViewById(R.id.tv_whole_income);
-        coms = findViewById(R.id.tv_comis);
+        commission = findViewById(R.id.tv_comis);
         days_remain = findViewById(R.id.tv_remain_day);
 
 
     }
 
-    private void onClickFab(){
+    private void onClickFab() {
         //set on click listener to fab
         fab_pro.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,7 +110,7 @@ public class SalaryActivity extends AppCompatActivity {
 
     }
 
-    private void setTextView(){
+    private void setTextView() {
 
         today_income.setText(DigitConverter.convert("2000"));
         week_income.setText(DigitConverter.convert("2000"));
@@ -111,24 +121,53 @@ public class SalaryActivity extends AppCompatActivity {
         month_online.setText(DigitConverter.convert("20"));
 
         days_remain.setText(DigitConverter.convert("20"));
-        coms.setText(DigitConverter.convert("2000"));
+        commission.setText(DigitConverter.convert("2000"));
         whole_income.setText(DigitConverter.convert("2000"));
 
     }
-    private void backOnclick(){
+
+    private void backOnclick() {
         tv_return.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(SalaryActivity.this,MainActivity.class));
+                startActivity(new Intent(SalaryActivity.this, MainActivity.class));
             }
         });
         img_return.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(SalaryActivity.this,MainActivity.class));
+                startActivity(new Intent(SalaryActivity.this, MainActivity.class));
             }
         });
 
+    }
+
+    private void getAccounting() {
+        ApiInterface.AccountingCallback accountingCallback = new ApiInterface.AccountingCallback() {
+            @Override
+            public void onResponse(Accounting accounting) {
+                setText(accounting);
+            }
+
+            @Override
+            public void onFailure(String error) {
+                handler.generateError(error);
+            }
+        };
+        DetailController detailController = new DetailController(accountingCallback);
+        detailController.getAccounting();
+    }
+
+    private void setText(Accounting accounting) {
+        today_income.setText(accounting.getDayIncome());
+        week_income.setText(accounting.getWeekIncome());
+        month_income.setText(accounting.getMonthIncome());
+        today_online.setText(accounting.getDayVisible());
+        week_online.setText(accounting.getWeekVisible());
+        month_online.setText(accounting.getMonthVisible());
+        whole_income.setText(accounting.getTotalIncome());
+        commission.setText(accounting.getTotalCommission());
+        days_remain.setText(accounting.getCommissionDayLeft());
     }
 
 }

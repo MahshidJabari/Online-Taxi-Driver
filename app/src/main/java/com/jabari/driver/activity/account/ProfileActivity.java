@@ -35,7 +35,6 @@ import com.jabari.driver.global.ExceptionHandler;
 import com.jabari.driver.global.GlobalVariables;
 import com.jabari.driver.global.PrefManager;
 import com.jabari.driver.network.config.ApiInterface;
-import com.jabari.driver.network.model.User;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
