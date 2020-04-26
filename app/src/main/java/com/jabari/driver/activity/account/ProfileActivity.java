@@ -5,27 +5,33 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
+
+import androidx.annotation.Nullable;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.jabari.driver.R;
 import com.jabari.driver.activity.DebugActivity;
 import com.jabari.driver.activity.main.MainActivity;
 import com.jabari.driver.controller.UserController;
+import com.jabari.driver.global.ExceptionHandler;
 import com.jabari.driver.global.GlobalVariables;
 import com.jabari.driver.global.PrefManager;
 import com.jabari.driver.network.config.ApiInterface;
@@ -45,7 +51,6 @@ import java.io.IOException;
 import java.util.Calendar;
 import java.util.List;
 
-import es.dmoral.toasty.Toasty;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 
@@ -59,7 +64,7 @@ public class ProfileActivity extends AppCompatActivity {
     private Bitmap crupBitmap;
     private TextView tv_email, tv_phone, tv_name, tv_credit, tv_vehicle;
     private Button btn_sheba, btn_support, btn_debug, btn_telegram, btn_tutorial;
-    private User user;
+    private ExceptionHandler handler;
 
 
     @Override
@@ -72,11 +77,10 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-
+        handler = new ExceptionHandler(this);
         setView();
         requestMultiplePermissions();
         addProfileImage();
-        getCurrentUser();
         setBtnOnClickListener();
     }
 
@@ -94,9 +98,12 @@ public class ProfileActivity extends AppCompatActivity {
         tv_name = findViewById(R.id.tv_name);
         tv_vehicle = findViewById(R.id.tv_vehicle_type);
 
-        tv_email.setText(user.getEmail());
-        tv_phone.setText(user.getMobileNum());
-        tv_name.setText(user.getName());
+
+        tv_email.setText(GlobalVariables.email);
+        String phone = "0" + GlobalVariables.phoneUser;
+        tv_phone.setText(phone);
+        tv_name.setText(GlobalVariables.name);
+
 
     }
 
@@ -140,15 +147,15 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onResponse(String phone) {
                 Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + phone));
+                if (ActivityCompat.checkSelfPermission(ProfileActivity.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                    return;
+                }
                 startActivity(intent);
             }
 
             @Override
             public void onFailure(String error) {
-                if (error.equals("connection"))
-                    Toasty.error(ProfileActivity.this, "خطا در برقراری ارتباط", Toasty.LENGTH_LONG).show();
-                if (error.equals("null"))
-                    Toasty.error(ProfileActivity.this, "درخواست با خطا مواجه شد", Toasty.LENGTH_LONG).show();
+                handler.generateError(error);
             }
         };
         UserController userController = new UserController(callSupportCallback);
@@ -242,7 +249,7 @@ public class ProfileActivity extends AppCompatActivity {
 
                 } catch (IOException e) {
                     e.printStackTrace();
-                    Toast.makeText(ProfileActivity.this, "Failed!", Toast.LENGTH_SHORT).show();
+                    handler.generateError("null");
 
                 }
             }
@@ -312,7 +319,7 @@ public class ProfileActivity extends AppCompatActivity {
                 withErrorListener(new PermissionRequestErrorListener() {
                     @Override
                     public void onError(DexterError error) {
-                        Toast.makeText(getApplicationContext(), "Some Error! ", Toast.LENGTH_SHORT).show();
+
                     }
                 })
                 .onSameThread()
@@ -368,10 +375,4 @@ public class ProfileActivity extends AppCompatActivity {
 
     }
 
-    private void getCurrentUser() {
-        if (getIntent().getExtras() != null) {
-            user = getIntent().getExtras().getParcelable("user");
-        } else
-            Toasty.error(ProfileActivity.this, "خطا در برقراری ارتباط!", Toasty.LENGTH_LONG).show();
-    }
 }

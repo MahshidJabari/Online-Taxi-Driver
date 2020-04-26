@@ -82,6 +82,7 @@ public interface ApiInterface {
         void onFailure(String error);
     }
 
+    @FormUrlEncoded
     @PUT("driver/location")
     Call<Coordinate> updateUserLocation(@Field("latitude") String latitude,
                                         @Field("longitude") String longitude);
@@ -92,6 +93,7 @@ public interface ApiInterface {
         void onFailure(String error);
     }
 
+    @FormUrlEncoded
     @PUT("driver/visibility")
     Call<JsonObject> setVisibility(@Field("visible") boolean visible,
                                    @Field("latitude") String latitude,

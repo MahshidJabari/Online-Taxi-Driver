@@ -114,7 +114,7 @@ public class UserController {
 
             @Override
             public void onFailure(Call<JsonObject> call, Throwable t) {
-                currentUserCallback.onFailure("connection");
+                currentUserCallback.onFailure("anonymous");
             }
         });
     }

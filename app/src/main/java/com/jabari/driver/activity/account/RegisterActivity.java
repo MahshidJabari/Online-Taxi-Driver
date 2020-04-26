@@ -3,8 +3,8 @@ package com.jabari.driver.activity.account;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -12,16 +12,16 @@ import android.widget.TextView;
 import com.jabari.driver.R;
 import com.jabari.driver.activity.main.MainActivity;
 import com.jabari.driver.controller.RegisterController;
+import com.jabari.driver.global.ExceptionHandler;
 import com.jabari.driver.global.GlobalVariables;
 import com.jabari.driver.global.PrefManager;
 import com.jabari.driver.network.config.ApiInterface;
 import com.jabari.driver.network.model.User;
-
-import es.dmoral.toasty.Toasty;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class RegisterActivity extends AppCompatActivity {
 
+    private ExceptionHandler handler;
     private EditText et_name, et_fName, et_nationalcode, et_personalcode, et_age, et_address, et_sheba, et_phone;
     private TextView tv_return;
     User user;
@@ -36,6 +36,7 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
+        handler = new ExceptionHandler(this);
         setUpView();
         onBackClick();
 
@@ -88,10 +89,7 @@ public class RegisterActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(String error) {
-                if (error.equals("connection"))
-                    Toasty.error(RegisterActivity.this, "خطا در برقراری ارتباط!", Toasty.LENGTH_LONG).show();
-                if (error.equals("null"))
-                    Toasty.error(RegisterActivity.this, "درخواست با خطا مواجه شد!", Toasty.LENGTH_LONG).show();
+               handler.generateError(error);
             }
         };
 

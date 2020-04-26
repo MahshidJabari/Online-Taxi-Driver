@@ -94,6 +94,7 @@
     <string name="exp_wrong_code">کد فعالسازی وارد شده اشتباه است</string>
     <string name="exp_wrong_phone">شماره همراه وارد شده صحیح نیست</string>
     <string name="exp_law">لطفا قوانین و مقررات را تایید کنید</string>
+    <string name="exp_anonymous">از حساب کاربری خود خارج شوید </string>
 
     <!-- success messages    -->
     <string name="success_visibility">درخواست های سفر برای شما ارسال می شود</string>

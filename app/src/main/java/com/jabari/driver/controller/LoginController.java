@@ -49,7 +49,7 @@ public class LoginController {
 
                     loginUserCallback.onResponse(user, token);
                 } else
-                    getLawsCallback.onFailure("null");
+                    loginUserCallback.onFailure("null");
             }
 
             @Override
@@ -69,7 +69,7 @@ public class LoginController {
                 if (response.isSuccessful()) {
                     userVerifyCodeCallback.onResponse("code");
                 } else
-                    getLawsCallback.onFailure("null");
+                    userVerifyCodeCallback.onFailure("null");
             }
 
             @Override

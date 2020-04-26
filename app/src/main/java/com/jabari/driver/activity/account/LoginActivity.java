@@ -4,9 +4,9 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.Nullable;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -45,6 +45,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        handler = new ExceptionHandler(this);
         setViews();
         fabOnclick();
         setFab_loginUnClickable();
@@ -104,7 +105,6 @@ public class LoginActivity extends AppCompatActivity {
 
     public void OnClickSendVerifyCode(View view) {
 
-        startActivity(new Intent(LoginActivity.this, MainActivity.class));
         if (!isValidPhone(et_phoneNum.getText().toString()))
             handler.generateError("invalid phone");
         else {

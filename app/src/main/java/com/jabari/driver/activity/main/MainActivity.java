@@ -11,11 +11,14 @@ import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Looper;
-import android.os.Parcelable;
 import android.provider.Settings;
-import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
+
+import androidx.annotation.NonNull;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
@@ -46,6 +49,7 @@ import com.jabari.driver.activity.ScoreActivity;
 import com.jabari.driver.activity.account.ProfileActivity;
 import com.jabari.driver.controller.UserController;
 import com.jabari.driver.global.ExceptionHandler;
+import com.jabari.driver.global.GlobalVariables;
 import com.jabari.driver.network.config.ApiInterface;
 import com.jabari.driver.network.model.Coordinate;
 import com.jabari.driver.network.model.User;
@@ -66,8 +70,8 @@ public class MainActivity extends AppCompatActivity {
     private CheckBox check_net, check_GPS, cb_ready;
     private User currentUser;
     private ExceptionHandler handler;
-    private static final long UPDATE_INTERVAL_IN_MILLISECONDS = 300000;
-    private static final long FASTEST_UPDATE_INTERVAL_IN_MILLISECONDS = 300000;
+    private static final long UPDATE_INTERVAL_IN_MILLISECONDS = 600000;
+    private static final long FASTEST_UPDATE_INTERVAL_IN_MILLISECONDS = 600000;
     final int REQUEST_CODE = 123;
     private Location userLocation;
     private FusedLocationProviderClient fusedLocationClient;
@@ -105,20 +109,19 @@ public class MainActivity extends AppCompatActivity {
                 if (cb_ready.isChecked()) {
                     initLocation();
                     startReceivingLocationUpdates();
-                } else {
-                    Coordinate coordinate = new Coordinate();
-                    coordinate.setLongitude(String.valueOf(userLocation.getLongitude()));
-                    coordinate.setLatitude(String.valueOf(userLocation.getLatitude()));
-                    setDriverVisible(coordinate, false);
                 }
             }
         });
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
+    protected void onDestroy() {
+        super.onDestroy();
         stopLocationUpdates();
+        Coordinate coordinate = new Coordinate();
+        coordinate.setLatitude(String.valueOf(userLocation.getLatitude()));
+        coordinate.setLongitude(String.valueOf(userLocation.getLongitude()));
+        setDriverVisible(coordinate, false);
     }
 
     public void setView() {
@@ -156,7 +159,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
-                intent.putExtra("User", (Parcelable) currentUser);
                 startActivity(intent);
 
             }
@@ -275,8 +277,10 @@ public class MainActivity extends AppCompatActivity {
         ApiInterface.CurrentUserCallback currentUserCallback = new ApiInterface.CurrentUserCallback() {
             @Override
             public void onResponse(User user) {
-                currentUser = new User();
-                currentUser = user;
+                GlobalVariables.email = user.getEmail();
+                GlobalVariables.name = user.getName();
+                GlobalVariables.phoneUser = user.getMobileNum();
+
             }
 
             @Override
@@ -315,7 +319,6 @@ public class MainActivity extends AppCompatActivity {
                 super.onLocationResult(locationResult);
                 // location is received
                 userLocation = locationResult.getLastLocation();
-                Log.d("location", userLocation.toString());
 
                 Coordinate coordinate = new Coordinate();
                 coordinate.setLatitude(String.valueOf(userLocation.getLatitude()));
@@ -345,10 +348,10 @@ public class MainActivity extends AppCompatActivity {
 
                         //noinspection MissingPermission
                         fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, Looper.myLooper());
-                        Coordinate coordinate = new Coordinate();
+                      /*  Coordinate coordinate = new Coordinate();
                         coordinate.setLatitude(String.valueOf(userLocation.getLatitude()));
                         coordinate.setLongitude(String.valueOf(userLocation.getLongitude()));
-                        updateUserLocation(coordinate);
+                        updateUserLocation(coordinate);*/
                     }
                 })
                 .addOnFailureListener(this, new OnFailureListener() {
@@ -416,7 +419,6 @@ public class MainActivity extends AppCompatActivity {
 
                 }).check();
     }
-
 
 
     private void setDriverVisible(Coordinate coordinate, Boolean visibility) {
