@@ -1,11 +1,20 @@
 package com.jabari.driver.controller;
 
+import android.content.Context;
+import android.util.Log;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.jabari.driver.global.GlobalVariables;
 import com.jabari.driver.network.config.ApiClient;
 import com.jabari.driver.network.config.ApiInterface;
 import com.jabari.driver.network.model.User;
 
+import java.io.File;
+
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -14,9 +23,16 @@ import retrofit2.Retrofit;
 public class RegisterController {
 
     ApiInterface.SignUpCallback signUpCallback;
+    ApiInterface.UploadFileCallback uploadFileCallback;
+    Context context;
 
     public RegisterController(ApiInterface.SignUpCallback signUpCallback) {
         this.signUpCallback = signUpCallback;
+    }
+
+    public RegisterController(ApiInterface.UploadFileCallback uploadFileCallback, Context context) {
+        this.uploadFileCallback = uploadFileCallback;
+        this.context = context;
     }
 
     public void signUp(User user) {
@@ -40,6 +56,40 @@ public class RegisterController {
             @Override
             public void onFailure(Call<JsonObject> call, Throwable t) {
                 signUpCallback.onFailure("connection");
+            }
+        });
+
+    }
+
+    public void upload(String s) {
+
+
+        Retrofit retrofit = ApiClient.getClient();
+        ApiInterface apiInterface = retrofit.create(ApiInterface.class);
+
+
+        File f = new File(s);
+        Log.d("s", s);
+        RequestBody reqFile = RequestBody.create(MediaType.parse("image/*"), f);
+        MultipartBody.Part image = MultipartBody.Part.createFormData("image", f.getName(), reqFile);
+
+
+        Call<JsonObject> call = apiInterface.uploadPhotos(image, GlobalVariables.tok);
+        call.enqueue(new Callback<JsonObject>() {
+            @Override
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+
+                Log.d("response", response.toString());
+                if (response.code() == 200) {
+                    String url = new Gson().fromJson(response.body().get("url"), String.class);
+                    GlobalVariables.urls.add("digipeyk.com/" + url);
+                    uploadFileCallback.onResponse(true);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<JsonObject> call, Throwable t) {
+
             }
         });
 

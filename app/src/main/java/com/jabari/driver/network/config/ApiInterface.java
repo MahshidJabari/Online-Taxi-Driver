@@ -7,12 +7,16 @@ import com.jabari.driver.network.model.Accounting;
 import com.jabari.driver.network.model.Coordinate;
 import com.jabari.driver.network.model.User;
 
+import okhttp3.MultipartBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
+import retrofit2.http.Part;
 
 public interface ApiInterface {
     @FormUrlEncoded
@@ -36,15 +40,6 @@ public interface ApiInterface {
         void onFailure(String error);
     }
 
-    @FormUrlEncoded
-    @POST("auth/driver/getlatlong")
-    Call<JsonObject> getLatLong();
-
-    interface GetPointsCallback {
-        void onResponse(Location start, Location stop);
-
-        void onFailure(String error);
-    }
 
     @FormUrlEncoded
     @POST("auth/driver/signup")
@@ -61,6 +56,16 @@ public interface ApiInterface {
 
     interface SignUpCallback {
         void onResponse(String token);
+
+        void onFailure(String error);
+    }
+
+    @FormUrlEncoded
+    @POST("auth/driver/getlatlong")
+    Call<JsonObject> getLatLong();
+
+    interface GetPointsCallback {
+        void onResponse(Location start, Location stop);
 
         void onFailure(String error);
     }
@@ -133,4 +138,67 @@ public interface ApiInterface {
         void onFailure(String error);
     }
 
+    @GET("driver/request/ready")
+    Call<JsonObject> readyRequests();
+
+    interface RequestCallback {
+        void onResponse();
+
+        void onFailure(String error);
+
+    }
+
+    @FormUrlEncoded
+    @PUT("driver/request/ready")
+    Call<JsonObject> acceptedRequest();
+
+    interface AcceptedRequestCallback {
+        void onResponse();
+
+        void onFailure(String error);
+
+    }
+
+    @FormUrlEncoded
+    @PUT("driver")
+    Call<JsonObject> updateDriver(@Field("age") String age,
+                                  @Field("email") String email,
+                                  @Field("name") String name,
+                                  @Field("fatherName") String LastName,
+                                  @Field("gender") String gender,
+                                  @Field("mobile") String mobile,
+                                  @Field("address") String address,
+                                  @Field("nationalNumber") String nationalNumber,
+                                  @Field("idNumber") String idNumber,
+                                  @Field("shebaNumber") String shebaNumber);
+
+    interface UpdateDriverCallback {
+        void onResponse();
+
+        void onFailure(String error);
+
+    }
+
+    @POST("driver/request")
+    Call<JsonObject> detailHistory();
+
+    interface DetailCallback {
+        void onResponse();
+
+        void onFailure(String error);
+    }
+
+    @Multipart
+    @POST("image")
+    Call<JsonObject> uploadPhotos(
+            @Part MultipartBody.Part image,
+            @Header("Authorization") String token
+    );
+
+    interface UploadFileCallback {
+        void onResponse(Boolean success);
+
+        void onFailure(String error);
+
+    }
 }

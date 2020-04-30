@@ -38,6 +38,7 @@
         <activity android:name=".activity.main.MainActivity"/>
         <activity android:name=".activity.account.AccountActivity"/>
         <activity android:name=".activity.DebugActivity"/>
+        <activity android:name=".activity.account.UploadActivity"/>
     </application>
 
 </manifest>

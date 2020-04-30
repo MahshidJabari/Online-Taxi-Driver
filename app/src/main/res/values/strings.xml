@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Driver</string>
-    <string name="signup_driver">پیش ثبت نام</string>
+    <string name="signup_driver"> ثبت نام</string>
     <string name="back">بازگشت</string>
     <string name="signin">تایید و ورود</string>
     <string name="signin_drivers">ورود به پنل سفیران</string>
@@ -70,9 +70,25 @@
     <string name="driver_type">نوع سفیر</string>
     <string name="driver_name">نام سفیر</string>
     <string name="stop">توقف</string>
+    <string name="send_photo">ارسال مدارک</string>
     <string name="email_address">آدرس ایمیل</string>
     <string name="mobile_num">شماره تلفن همراه</string>
     <string name="sheba_num">شماره شبا</string>
+    <string name="up_photo">ارسال عکس ها و مدارک</string>
+    <string name="meli_card">کارت ملی</string>
+    <string name="choose_photo">انتخاب عکس</string>
+    <string name="identity">شناسنامه</string>
+    <string name="driving_licence">گواهینامه</string>
+    <string name="card2">پایان خدمت</string>
+    <string name="green_paper">برگ سبز</string>
+    <string name="water_bill">قبوض آب</string>
+    <string name="bill2">قبوض برق</string>
+    <string name="continue_register">ادامه فرآیند ثبت نام</string>
+    <string name="save_photo">میخواهید عکس را ارسال کنید؟</string>
+    <string name="cancel">انصراف</string>
+    <string name="select_action">انتخاب کنید</string>
+    <string name="select_photo">انتخاب عکس از گالری</string>
+    <string name="capture_photo">گرفتن عکس با دوربین</string>
     <string name="ready">آماده ی پذیرش درخواست هستم</string>
     <string name="agree">قبول دارم</string>
     <!--   <string name="linkToSite"><a href="">قوانین و مقررات</a></string>
@@ -83,7 +99,7 @@
     <string name="telegram_channel">کانال تلگرام سفیران</string>
     <string name="driver_card">کارت حساب سفیر</string>
     <string name="pass">رمز عبور ارسال شده</string>
-    <string name="msg_signup">شما میتوانید از این قسمت نسبت به پیش ثبت نام بعنوان سفیر دیجی پیک اقدام کنید! سپس یک رسید برای شما ارسال میشود که شما میتوانید با ارائه ی رسید ارسال شده و اصل شناسنامه خود به یکی از مراکز ثبت نام، حساب خود را فعال کنید.</string>
+    <string name="msg_signup">شما میتوانید از این قسمت نسبت به ثبت نام بعنوان سفیر دیجی پیک اقدام کنید! سپس یک رسید برای شما ارسال میشود که شما میتوانید با ارائه ی رسید ارسال شده و اصل شناسنامه خود به یکی از مراکز ثبت نام، حساب خود را فعال کنید.</string>
 
     <!-- exception messages    -->
     <string name="exp_null">عملیات با خطا مواجه شد</string>
