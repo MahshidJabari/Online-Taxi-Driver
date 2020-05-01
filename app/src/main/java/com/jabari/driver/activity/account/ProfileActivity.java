@@ -374,4 +374,11 @@ public class ProfileActivity extends AppCompatActivity {
 
     }
 
+    public void onClickDocument(View view) {
+        startActivity(new Intent(ProfileActivity.this, UploadActivity.class));
+    }
+
+    private void sendDocument() {
+    }
+
 }

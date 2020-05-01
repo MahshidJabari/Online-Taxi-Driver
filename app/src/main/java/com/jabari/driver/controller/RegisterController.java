@@ -91,7 +91,7 @@ public class RegisterController {
 
             @Override
             public void onFailure(Call<JsonObject> call, Throwable t) {
-
+                uploadFileCallback.onFailure("connection");
             }
         });
 

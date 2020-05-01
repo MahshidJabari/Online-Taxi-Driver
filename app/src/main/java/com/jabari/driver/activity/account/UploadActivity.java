@@ -135,7 +135,7 @@ public class UploadActivity extends AppCompatActivity {
 
                 AlertDialog.Builder dialog = new AlertDialog.Builder(this);
                 dialog.setTitle(getResources().getString(R.string.save_photo));
-                dialog.setPositiveButton(getResources().getString(R.string.send), new DialogInterface.OnClickListener() {
+                dialog.setPositiveButton(getResources().getString(R.string.send_pic), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
 
@@ -166,7 +166,7 @@ public class UploadActivity extends AppCompatActivity {
 
                 AlertDialog.Builder dialog = new AlertDialog.Builder(this);
                 dialog.setTitle(getResources().getString(R.string.save_photo));
-                dialog.setPositiveButton(getResources().getString(R.string.send), new DialogInterface.OnClickListener() {
+                dialog.setPositiveButton(getResources().getString(R.string.send_pic), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
 

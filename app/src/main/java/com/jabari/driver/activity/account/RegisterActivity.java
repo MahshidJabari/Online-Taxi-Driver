@@ -97,15 +97,11 @@ public class RegisterActivity extends AppCompatActivity {
             }
         };
 
+        //empty document which will be filled in profile activity
+        Document document = new Document();
         RegisterController registerController = new RegisterController(signUpCallback);
-        if (getIntent().getExtras() != null) {
-            Document document = getIntent().getExtras().getParcelable("document");
-            if (document != null)
-                registerController.signUp(createUser(), document);
-            else  handler.generateError("null_doc");
-        } else {
-            handler.generateError("null_doc");
-        }
+        registerController.signUp(createUser(), document);
+
 
     }
 

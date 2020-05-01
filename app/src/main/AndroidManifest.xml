@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.jabari.driver">
+
     <uses-permission android:name="android.permission.SEND_SMS" />
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
-    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:name=".global.CustomFontApplication"
@@ -17,28 +21,34 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.TravelDetailsActivity"/>
+        <activity android:name=".activity.TravelDetailsActivity" />
 
         <activity android:name=".activity.account.FirstActivity">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
-        <activity android:name=".activity.account.RegisterActivity"/>
-        <activity android:name=".activity.account.ProfileActivity"/>
-        <activity android:name=".activity.account.LoginActivity"/>
-        <activity android:name=".activity.ScoreActivity"/>
-        <activity android:name=".activity.SalaryDetailActivity"/>
-        <activity android:name=".activity.AreaActivity"/>
-        <activity android:name=".activity.HistoryActivity"/>
-        <activity android:name=".activity.main.SalaryActivity"/>
-        <activity android:name=".activity.main.RewardActivity"/>
-        <activity android:name=".activity.main.MainActivity"/>
-        <activity android:name=".activity.account.AccountActivity"/>
-        <activity android:name=".activity.DebugActivity"/>
-        <activity android:name=".activity.account.UploadActivity"/>
+        <activity android:name=".activity.account.RegisterActivity" />
+        <activity android:name=".activity.account.ProfileActivity" />
+        <activity android:name=".activity.account.LoginActivity" />
+        <activity android:name=".activity.ScoreActivity" />
+        <activity android:name=".activity.SalaryDetailActivity" />
+        <activity android:name=".activity.AreaActivity" />
+        <activity android:name=".activity.HistoryActivity" />
+        <activity android:name=".activity.main.SalaryActivity" />
+        <activity android:name=".activity.main.RewardActivity" />
+        <activity android:name=".activity.main.MainActivity">
+
+            <meta-data
+                android:name="cheshmakPush"
+                android:value="openActivityOnPush" />
+
+        </activity>
+        <activity android:name=".activity.account.AccountActivity" />
+        <activity android:name=".activity.DebugActivity" />
+        <activity android:name=".activity.account.UploadActivity" />
     </application>
 
 </manifest>

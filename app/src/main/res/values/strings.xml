@@ -37,6 +37,7 @@
     <string name="traveldetail">جزئیات سفر</string>
     <string name="history">لیست سفرها</string>
     <string name="send">ارسال کد تایید</string>
+    <string name="send_pic">ارسال</string>
     <string name="area">مناطق پر درخواست</string>
     <string name="lot">زیاد</string>
     <string name="without">بدون</string>
