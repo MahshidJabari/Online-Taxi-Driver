@@ -8,6 +8,7 @@ import com.google.gson.JsonObject;
 import com.jabari.driver.global.GlobalVariables;
 import com.jabari.driver.network.config.ApiClient;
 import com.jabari.driver.network.config.ApiInterface;
+import com.jabari.driver.network.model.Document;
 import com.jabari.driver.network.model.User;
 
 import java.io.File;
@@ -35,13 +36,14 @@ public class RegisterController {
         this.context = context;
     }
 
-    public void signUp(User user) {
+    public void signUp(User user, Document document) {
 
         Retrofit retrofit = ApiClient.getClient();
         ApiInterface apiInterface = retrofit.create(ApiInterface.class);
         Call<JsonObject> call = apiInterface.sign_up(user.getAge(), user.getEmail(),
                 user.getName(), user.getFatherName(), "false", user.getMobileNum(), user.getAddress(),
-                user.getNationalNumber(), user.getIdentity(), user.getSheba());
+                user.getNationalNumber(), user.getIdentity(), user.getSheba(), GlobalVariables.vehicle, document.getDocumentMeli(), document.getDocumentId(),
+                document.getDocumentLicense(), document.getDocumentMilitary(), document.getDocumentGreenPaper(), document.getDocumentWaterBill(), document.getDocumentElectricalBill());
         call.enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
@@ -80,10 +82,10 @@ public class RegisterController {
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
 
                 Log.d("response", response.toString());
-                if (response.code() == 200) {
+                if (response.body() != null) {
                     String url = new Gson().fromJson(response.body().get("url"), String.class);
-                    GlobalVariables.urls.add("digipeyk.com/" + url);
-                    uploadFileCallback.onResponse(true);
+                    String uploaded_fileUrl = "http://digipeyk.com/" + url;
+                    uploadFileCallback.onResponse(uploaded_fileUrl);
                 }
             }
 

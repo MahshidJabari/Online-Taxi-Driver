@@ -81,8 +81,9 @@
     <string name="driving_licence">گواهینامه</string>
     <string name="card2">پایان خدمت</string>
     <string name="green_paper">برگ سبز</string>
-    <string name="water_bill">قبوض آب</string>
-    <string name="bill2">قبوض برق</string>
+    <string name="water_bill">قبض آب</string>
+    <string name="bill2">قبض برق</string>
+    <string name="vehicle_type">نوع وسیله نقلیه</string>
     <string name="continue_register">ادامه فرآیند ثبت نام</string>
     <string name="save_photo">میخواهید عکس را ارسال کنید؟</string>
     <string name="cancel">انصراف</string>
@@ -101,6 +102,14 @@
     <string name="pass">رمز عبور ارسال شده</string>
     <string name="msg_signup">شما میتوانید از این قسمت نسبت به ثبت نام بعنوان سفیر دیجی پیک اقدام کنید! سپس یک رسید برای شما ارسال میشود که شما میتوانید با ارائه ی رسید ارسال شده و اصل شناسنامه خود به یکی از مراکز ثبت نام، حساب خود را فعال کنید.</string>
 
+
+    <string-array name="vehicle_arrays">
+        <item>پیک موتوری</item>
+        <item>تاکسی موتور</item>
+        <item>سواری</item>
+        <item>وانت سنگین</item>
+        <item>وانت بار</item>
+    </string-array>
     <!-- exception messages    -->
     <string name="exp_null">عملیات با خطا مواجه شد</string>
     <string name="exp_connection">خطا در برقراری ارتباط</string>
@@ -111,6 +120,7 @@
     <string name="exp_wrong_phone">شماره همراه وارد شده صحیح نیست</string>
     <string name="exp_law">لطفا قوانین و مقررات را تایید کنید</string>
     <string name="exp_anonymous">از حساب کاربری خود خارج شوید </string>
+    <string name="exp_null_doc">مدارک به درستی ارسال نشده است</string>
 
     <!-- success messages    -->
     <string name="success_visibility">درخواست های سفر برای شما ارسال می شود</string>

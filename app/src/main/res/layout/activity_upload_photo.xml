@@ -440,6 +440,46 @@
         app:layout_constraintTop_toBottomOf="@id/lin7"
         app:layout_constraintWidth_percent="0.8" />
 
+    <LinearLayout
+        android:id="@+id/lin8"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="5dp"
+        android:layoutDirection="rtl"
+        android:weightSum="2"
+        app:layout_constraintBottom_toTopOf="@id/guideline_aboveEnd"
+        app:layout_constraintHeight_percent="0.05"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/view7"
+        app:layout_constraintVertical_bias="0.14"
+        app:layout_constraintWidth_percent="0.8">
+
+        <TextView
+            style="@style/text_dark_blue_18"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1.2"
+            android:background="@color/transparent"
+            android:gravity="start"
+            android:layoutDirection="rtl"
+            android:text="@string/vehicle_type" />
+
+        <Spinner
+            android:id="@+id/spinner_vehicle"
+            style="@style/text_white_17"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.8"
+            android:background="@drawable/back_ten_radius_blue"
+            android:entries="@array/vehicle_arrays"
+            android:gravity="center"
+            android:layoutDirection="rtl"
+            android:spinnerMode="dropdown" />
+
+
+    </LinearLayout>
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_aboveEnd"
         android:layout_width="1dp"

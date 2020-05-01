@@ -43,6 +43,9 @@ public class ExceptionHandler {
             case "anonymous":
                 Toasty.error(myContext.getBaseContext(), myContext.getString(R.string.exp_anonymous), Toasty.LENGTH_LONG).show();
                 break;
+            case "null_doc":
+                Toasty.error(myContext.getBaseContext(), myContext.getString(R.string.exp_null_doc), Toasty.LENGTH_LONG).show();
+                break;
         }
     }
 

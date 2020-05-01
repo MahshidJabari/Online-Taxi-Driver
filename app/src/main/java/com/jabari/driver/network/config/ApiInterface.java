@@ -52,7 +52,15 @@ public interface ApiInterface {
                              @Field("address") String address,
                              @Field("nationalNumber") String nationalNumber,
                              @Field("idNumber") String idNumber,
-                             @Field("shebaNumber") String shebaNumber);
+                             @Field("shebaNumber") String shebaNumber,
+                             @Field("vehicle") String vehicle,
+                             @Field("documentMeli") String documentMeli,
+                             @Field("documentId") String documentId,
+                             @Field("documentLicense") String documentLicense,
+                             @Field("documentMilitary") String documentMilitary,
+                             @Field("documentGreenPaper") String documentGreenPaper,
+                             @Field("documentWaterBill") String documentWaterBill,
+                             @Field("documentElectricalBill") String documentElectricalBill);
 
     interface SignUpCallback {
         void onResponse(String token);
@@ -196,7 +204,7 @@ public interface ApiInterface {
     );
 
     interface UploadFileCallback {
-        void onResponse(Boolean success);
+        void onResponse(String url);
 
         void onFailure(String error);
 

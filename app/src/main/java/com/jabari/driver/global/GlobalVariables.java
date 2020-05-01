@@ -1,8 +1,5 @@
 package com.jabari.driver.global;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class GlobalVariables {
 
     public static String tok = "";
@@ -11,8 +8,7 @@ public class GlobalVariables {
     public static boolean isLogin = false;
     public static String email;
     public static String name;
-    public static Integer uploadedFile = 0;
-    public static List<String> urls = new ArrayList<>();
+    public static String vehicle;
     public static Boolean isClicked = false;
 
 }

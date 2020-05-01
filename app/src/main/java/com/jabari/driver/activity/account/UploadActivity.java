@@ -11,6 +11,7 @@ import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Parcelable;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
@@ -24,6 +25,7 @@ import com.jabari.driver.R;
 import com.jabari.driver.controller.RegisterController;
 import com.jabari.driver.global.GlobalVariables;
 import com.jabari.driver.network.config.ApiInterface;
+import com.jabari.driver.network.model.Document;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
@@ -48,6 +50,10 @@ public class UploadActivity extends AppCompatActivity {
     private static final String IMAGE_DIRECTORY = "/demonuts";
     private Uri imageUri;
     private View selectView;
+    private int selectedView;
+    private boolean meli = false, Id = false, military = false, greenPaper = false, waterBill = false, electricBill = false, licence = false;
+    private Document document = new Document();
+    ;
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -65,6 +71,7 @@ public class UploadActivity extends AppCompatActivity {
     public void onClick(View view) {
 
         GlobalVariables.isClicked = true;
+        selectedView = view.getId();
         showPictureDialog(view);
         this.selectView = view;
 
@@ -187,8 +194,10 @@ public class UploadActivity extends AppCompatActivity {
 
 
     public void onClickRegister(View view) {
-        if (GlobalVariables.uploadedFile == 7) {
-            startActivity(new Intent(UploadActivity.this, RegisterActivity.class));
+        if (meli & Id & licence & military & greenPaper & electricBill & waterBill) {
+            Intent intent = new Intent(UploadActivity.this, RegisterActivity.class);
+            intent.putExtra("document", (Parcelable) document);
+            startActivity(intent);
         } else
             Toasty.error(UploadActivity.this, "مدارک ناقص است!", Toast.LENGTH_LONG, true).show();
     }
@@ -197,12 +206,11 @@ public class UploadActivity extends AppCompatActivity {
 
         ApiInterface.UploadFileCallback uploadFileCallback = new ApiInterface.UploadFileCallback() {
             @Override
-            public void onResponse(Boolean success) {
+            public void onResponse(String url) {
 
                 selectView.setBackgroundDrawable(getResources().getDrawable(R.drawable.back_ten_radius_gray));
                 Toasty.success(UploadActivity.this, "ارسال شد!", Toast.LENGTH_LONG, true).show();
-                GlobalVariables.uploadedFile += 1;
-
+                setDocument(url);
 
             }
 
@@ -215,6 +223,39 @@ public class UploadActivity extends AppCompatActivity {
         };
         RegisterController uploadController = new RegisterController(uploadFileCallback, UploadActivity.this);
         uploadController.upload(s);
+    }
+
+    public void setDocument(String url) {
+        switch (selectedView) {
+            case R.id.btn_send_meli:
+                document.setDocumentMeli(url);
+                meli = true;
+                break;
+            case R.id.btn_send_identity:
+                document.setDocumentId(url);
+                Id = true;
+                break;
+            case R.id.btn_send_license:
+                document.setDocumentLicense(url);
+                licence = true;
+                break;
+            case R.id.btn_send_military:
+                document.setDocumentMilitary(url);
+                military = true;
+                break;
+            case R.id.btn_send_green_paper:
+                document.setDocumentGreenPaper(url);
+                greenPaper = true;
+                break;
+            case R.id.btn_send_water_bill:
+                document.setDocumentWaterBill(url);
+                waterBill = true;
+                break;
+            case R.id.btn_send_electricity_bill:
+                document.setDocumentElectricalBill(url);
+                electricBill = true;
+                break;
+        }
     }
 
     public String getRealPathFromURI(Uri contentUri) {
