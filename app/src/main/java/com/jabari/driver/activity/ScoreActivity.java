@@ -2,18 +2,26 @@ package com.jabari.driver.activity;
 
 import android.content.Context;
 import android.os.Bundle;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.widget.TextView;
 
 import com.jabari.driver.R;
+import com.jabari.driver.controller.DetailController;
+import com.jabari.driver.controller.UserController;
 import com.jabari.driver.global.DigitConverter;
+import com.jabari.driver.global.ExceptionHandler;
+import com.jabari.driver.network.config.ApiInterface;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class ScoreActivity extends AppCompatActivity {
 
-    private TextView tv_score,tv_travels,tv_stars;
+    private TextView tv_score, tv_travels, tv_stars;
+    private ExceptionHandler handler;
+
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
@@ -24,20 +32,34 @@ public class ScoreActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_score);
 
+        handler = new ExceptionHandler(this);
         setViews();
-        setTextView();
+        getStar();
     }
 
-    private void setViews(){
+    private void setViews() {
         tv_score = findViewById(R.id.tv_score);
         tv_stars = findViewById(R.id.tv_stars);
         tv_travels = findViewById(R.id.tv_travels);
     }
 
-    private void setTextView(){
-        tv_score.setText(DigitConverter.convert("4.75/5"));
-        tv_stars.setText(DigitConverter.convert("125 عدد"));
-        tv_travels.setText(DigitConverter.convert("125 عدد"));
 
+    private void getStar() {
+        ApiInterface.StarCallback starCallback = new ApiInterface.StarCallback() {
+            @Override
+            public void onResponse(String starCount, String tripCount, String currentStar) {
+                tv_score.setText(DigitConverter.convert(currentStar));
+                tv_stars.setText(DigitConverter.convert(starCount + "عدد"));
+                tv_travels.setText(DigitConverter.convert(tripCount + "عدد"));
+
+            }
+
+            @Override
+            public void onFailure(String error) {
+                handler.generateError(error);
+            }
+        };
+        DetailController detailController = new DetailController(starCallback);
+        detailController.getStars();
     }
 }

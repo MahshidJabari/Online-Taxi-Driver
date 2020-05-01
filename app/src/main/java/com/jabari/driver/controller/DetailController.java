@@ -31,12 +31,17 @@ public class DetailController {
         call.enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-
+                if (response.body() != null) {
+                    String starCount = new Gson().fromJson(response.body().get("starCount"), String.class);
+                    String tripCount = new Gson().fromJson(response.body().get("tripCount"), String.class);
+                    String currentStar = new Gson().fromJson(response.body().get("currentStar"), String.class);
+                    starCallback.onResponse(starCount, tripCount, currentStar);
+                } else starCallback.onFailure("null");
             }
 
             @Override
             public void onFailure(Call<JsonObject> call, Throwable t) {
-
+                starCallback.onFailure("connection");
             }
         });
     }

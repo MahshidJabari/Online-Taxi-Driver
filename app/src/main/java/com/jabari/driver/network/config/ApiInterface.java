@@ -141,7 +141,7 @@ public interface ApiInterface {
     Call<JsonObject> star();
 
     interface StarCallback {
-        void onResponse(String laws);
+        void onResponse(String starCount, String tripCount, String currentStar);
 
         void onFailure(String error);
     }
