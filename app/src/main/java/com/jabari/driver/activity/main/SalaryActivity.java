@@ -41,12 +41,11 @@ public class SalaryActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_salary);
+        setContentView(R.layout.activity_salery);
         handler = new ExceptionHandler(this);
 
         setView();
         onClickFab();
-        setTextView();
         backOnclick();
         getAccounting();
     }
@@ -110,21 +109,6 @@ public class SalaryActivity extends AppCompatActivity {
 
     }
 
-    private void setTextView() {
-
-        today_income.setText(DigitConverter.convert("2000"));
-        week_income.setText(DigitConverter.convert("2000"));
-        month_income.setText(DigitConverter.convert("2000"));
-
-        today_online.setText(DigitConverter.convert("20"));
-        week_online.setText(DigitConverter.convert("20"));
-        month_online.setText(DigitConverter.convert("20"));
-
-        days_remain.setText(DigitConverter.convert("20"));
-        commission.setText(DigitConverter.convert("2000"));
-        whole_income.setText(DigitConverter.convert("2000"));
-
-    }
 
     private void backOnclick() {
         tv_return.setOnClickListener(new View.OnClickListener() {
@@ -159,15 +143,15 @@ public class SalaryActivity extends AppCompatActivity {
     }
 
     private void setText(Accounting accounting) {
-        today_income.setText(accounting.getDayIncome());
-        week_income.setText(accounting.getWeekIncome());
-        month_income.setText(accounting.getMonthIncome());
-        today_online.setText(accounting.getDayVisible());
-        week_online.setText(accounting.getWeekVisible());
-        month_online.setText(accounting.getMonthVisible());
-        whole_income.setText(accounting.getTotalIncome());
-        commission.setText(accounting.getTotalCommission());
-        days_remain.setText(accounting.getCommissionDayLeft());
+        today_income.setText(DigitConverter.convert(accounting.getDayIncome()));
+        week_income.setText(DigitConverter.convert(accounting.getWeekIncome()));
+        month_income.setText(DigitConverter.convert(accounting.getMonthIncome()));
+        today_online.setText(DigitConverter.convert(accounting.getDayVisible()));
+        week_online.setText(DigitConverter.convert(accounting.getWeekVisible()));
+        month_online.setText(DigitConverter.convert(accounting.getMonthVisible()));
+        whole_income.setText(DigitConverter.convert(accounting.getTotalIncome()));
+        commission.setText(DigitConverter.convert(accounting.getTotalCommission()));
+        days_remain.setText(DigitConverter.convert(accounting.getCommissionDayLeft()));
     }
 
 }

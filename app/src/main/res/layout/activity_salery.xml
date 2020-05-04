@@ -31,30 +31,6 @@
             app:layout_constraintVertical_bias="0.5"
             app:layout_constraintWidth_percent="0.4" />
 
-        <TextView
-            android:id="@+id/tv_return"
-            style="@style/tv_return"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:gravity="right"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintDimensionRatio="4"
-            app:layout_constraintLeft_toRightOf="@id/tv_title"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.5"
-            app:layout_constraintWidth_percent="0.2" />
-
-        <ImageView
-            android:id="@+id/img_return"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:gravity="center"
-            android:src="@drawable/ic_chevron_right_white_24dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toRightOf="@id/tv_return"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintWidth_percent="0.1" />
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -111,7 +87,7 @@
         android:background="@drawable/border2"
         android:translationY="-30dp"
         app:layout_constraintBottom_toTopOf="@id/guideline_aboveEnd"
-        app:layout_constraintHeight_percent="0.18"
+        app:layout_constraintHeight_percent="0.2"
         app:layout_constraintLeft_toRightOf="@id/guideline_left_left"
         app:layout_constraintRight_toLeftOf="@id/guideline_right_right"
         app:layout_constraintTop_toBottomOf="@id/guideline_underHeader"
@@ -158,7 +134,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.4"
-                android:gravity=""
+                android:paddingTop="10dp"
                 android:text="0"
                 android:textDirection="ltr" />
 
@@ -208,7 +184,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.4"
-                android:gravity=""
+                android:paddingTop="10dp"
                 android:text="0"
                 android:textDirection="ltr" />
 
@@ -257,7 +233,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.4"
-                android:gravity=""
+                android:paddingTop="10dp"
                 android:text="0"
                 android:textDirection="ltr" />
 
@@ -279,7 +255,7 @@
         android:layout_height="0dp"
         android:background="@drawable/border2"
         app:layout_constraintBottom_toTopOf="@id/guideline_aboveEnd"
-        app:layout_constraintHeight_percent="0.18"
+        app:layout_constraintHeight_percent="0.2"
         app:layout_constraintLeft_toRightOf="@id/guideline_left_left"
         app:layout_constraintRight_toLeftOf="@id/guideline_right_right"
         app:layout_constraintTop_toBottomOf="@id/cons1"
@@ -326,7 +302,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.4"
-                android:gravity=""
+                android:paddingTop="10dp"
                 android:text="0"
                 android:textDirection="ltr" />
 
@@ -376,7 +352,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.4"
-                android:gravity=""
+                android:paddingTop="10dp"
                 android:text="0"
                 android:textDirection="ltr" />
 
@@ -425,7 +401,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.4"
-                android:gravity=""
+                android:paddingTop="10dp"
                 android:text="0"
                 android:textDirection="ltr" />
 
@@ -446,7 +422,7 @@
         android:layout_height="0dp"
         android:background="@drawable/border2"
         app:layout_constraintBottom_toTopOf="@id/guideline_aboveEnd"
-        app:layout_constraintHeight_percent="0.18"
+        app:layout_constraintHeight_percent="0.2"
         app:layout_constraintLeft_toRightOf="@id/guideline_left_left"
         app:layout_constraintRight_toLeftOf="@id/guideline_right_right"
         app:layout_constraintTop_toBottomOf="@id/cons2"
@@ -493,7 +469,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.4"
-                android:gravity=""
+                android:paddingTop="10dp"
                 android:text="0"
                 android:textDirection="ltr" />
 
@@ -543,7 +519,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.4"
-                android:gravity=""
+                android:paddingTop="10dp"
                 android:text="0"
                 android:textDirection="ltr" />
 
@@ -592,7 +568,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.4"
-                android:gravity=""
+                android:paddingTop="10dp"
                 android:text="0"
                 android:textDirection="ltr" />
 

@@ -8,11 +8,12 @@ import com.google.gson.JsonObject;
 import com.jabari.driver.global.GlobalVariables;
 import com.jabari.driver.network.config.ApiClient;
 import com.jabari.driver.network.config.ApiInterface;
-import com.jabari.driver.network.model.Document;
 import com.jabari.driver.network.model.User;
 
 import java.io.File;
 
+import me.cheshmak.android.sdk.core.Cheshmak;
+import me.cheshmak.android.sdk.core.network.CheshmakCallback;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -26,6 +27,7 @@ public class RegisterController {
     ApiInterface.SignUpCallback signUpCallback;
     ApiInterface.UploadFileCallback uploadFileCallback;
     Context context;
+    private String cheshmakId;
 
     public RegisterController(ApiInterface.SignUpCallback signUpCallback) {
         this.signUpCallback = signUpCallback;
@@ -36,14 +38,25 @@ public class RegisterController {
         this.context = context;
     }
 
-    public void signUp(User user, Document document) {
+    public void getNotifyId() {
 
+        Cheshmak.initTracker("r035KbHW8OcMwBQhPs+Jpg==", new CheshmakCallback() {
+            @Override
+            public void onCheshmakIdReceived(String cheshmakID) {
+                cheshmakId = cheshmakID;
+            }
+        });
+
+    }
+
+    public void signUp(User user) {
+
+        getNotifyId();
         Retrofit retrofit = ApiClient.getClient();
         ApiInterface apiInterface = retrofit.create(ApiInterface.class);
         Call<JsonObject> call = apiInterface.sign_up(user.getAge(), user.getEmail(),
                 user.getName(), user.getFatherName(), "false", user.getMobileNum(), user.getAddress(),
-                user.getNationalNumber(), user.getIdentity(), user.getSheba(), GlobalVariables.vehicle, document.getDocumentMeli(), document.getDocumentId(),
-                document.getDocumentLicense(), document.getDocumentMilitary(), document.getDocumentGreenPaper(), document.getDocumentWaterBill(), document.getDocumentElectricalBill());
+                user.getNationalNumber(), user.getIdentity(), user.getSheba(), GlobalVariables.vehicle, cheshmakId);
         call.enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
@@ -65,10 +78,8 @@ public class RegisterController {
 
     public void upload(String s) {
 
-
         Retrofit retrofit = ApiClient.getClient();
         ApiInterface apiInterface = retrofit.create(ApiInterface.class);
-
 
         File f = new File(s);
         Log.d("s", s);

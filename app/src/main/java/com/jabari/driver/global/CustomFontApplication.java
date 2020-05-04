@@ -15,7 +15,7 @@ public class CustomFontApplication extends MultiDexApplication {
     public void onCreate() {
         super.onCreate();
         Cheshmak.with(this);
-        Cheshmak.initTracker("FsvcK9oB1DEmBQVn3/w7jg==");
+        Cheshmak.initTracker("dJDaWYSTim50WQUAvyfttA==");
         CalligraphyConfig.initDefault(
                 new CalligraphyConfig.Builder()
                         .setDefaultFontPath("font/iransans200.ttf")

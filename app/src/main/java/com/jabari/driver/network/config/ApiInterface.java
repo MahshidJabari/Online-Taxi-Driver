@@ -54,13 +54,7 @@ public interface ApiInterface {
                              @Field("idNumber") String idNumber,
                              @Field("shebaNumber") String shebaNumber,
                              @Field("vehicle") String vehicle,
-                             @Field("documentMeli") String documentMeli,
-                             @Field("documentId") String documentId,
-                             @Field("documentLicense") String documentLicense,
-                             @Field("documentMilitary") String documentMilitary,
-                             @Field("documentGreenPaper") String documentGreenPaper,
-                             @Field("documentWaterBill") String documentWaterBill,
-                             @Field("documentElectricalBill") String documentElectricalBill);
+                             @Field("notifyId") String notifyId);
 
     interface SignUpCallback {
         void onResponse(String token);
@@ -169,16 +163,18 @@ public interface ApiInterface {
 
     @FormUrlEncoded
     @PUT("driver")
-    Call<JsonObject> updateDriver(@Field("age") String age,
-                                  @Field("email") String email,
+    Call<JsonObject> updateDriver(@Field("email") String email,
                                   @Field("name") String name,
-                                  @Field("fatherName") String LastName,
                                   @Field("gender") String gender,
                                   @Field("mobile") String mobile,
-                                  @Field("address") String address,
-                                  @Field("nationalNumber") String nationalNumber,
-                                  @Field("idNumber") String idNumber,
-                                  @Field("shebaNumber") String shebaNumber);
+                                  @Field("notifyId") String notifyId,
+                                  @Field("documentMeli") String documentMeli,
+                                  @Field("documentId") String documentId,
+                                  @Field("documentLicense") String documentLicense,
+                                  @Field("documentMilitary") String documentMilitary,
+                                  @Field("documentGreenPaper") String documentGreenPaper,
+                                  @Field("documentWaterBill") String documentWaterBill,
+                                  @Field("documentElectricalBill") String documentElectricalBill);
 
     interface UpdateDriverCallback {
         void onResponse();

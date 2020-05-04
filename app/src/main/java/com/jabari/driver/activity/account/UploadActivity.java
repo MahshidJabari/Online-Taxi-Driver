@@ -23,9 +23,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.jabari.driver.R;
 import com.jabari.driver.controller.RegisterController;
+import com.jabari.driver.controller.UserController;
+import com.jabari.driver.global.ExceptionHandler;
 import com.jabari.driver.global.GlobalVariables;
 import com.jabari.driver.network.config.ApiInterface;
 import com.jabari.driver.network.model.Document;
+import com.jabari.driver.network.model.User;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
@@ -53,7 +56,7 @@ public class UploadActivity extends AppCompatActivity {
     private int selectedView;
     private boolean meli = false, Id = false, military = false, greenPaper = false, waterBill = false, electricBill = false, licence = false;
     private Document document = new Document();
-    ;
+    private ExceptionHandler handler;
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -64,6 +67,8 @@ public class UploadActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upload_photo);
+        handler = new ExceptionHandler(this);
+
 
         requestMultiplePermissions();
     }
@@ -195,11 +200,10 @@ public class UploadActivity extends AppCompatActivity {
 
     public void onClickRegister(View view) {
         if (meli & Id & licence & military & greenPaper & electricBill & waterBill) {
-            Intent intent = new Intent(UploadActivity.this, RegisterActivity.class);
-            intent.putExtra("document", (Parcelable) document);
-            startActivity(intent);
+            sendDocument();
+            startActivity(new Intent(UploadActivity.this, ProfileActivity.class));
         } else
-            Toasty.error(UploadActivity.this, "مدارک ناقص است!", Toast.LENGTH_LONG, true).show();
+            Toasty.error(UploadActivity.this, "مدارک کامل نشده اند!", Toast.LENGTH_LONG, true).show();
     }
 
     public void uploadFile(String s) {
@@ -217,7 +221,7 @@ public class UploadActivity extends AppCompatActivity {
             @Override
             public void onFailure(String error) {
 
-                Toasty.error(UploadActivity.this, "ارسال با خطا مواجه شد!", Toast.LENGTH_LONG, true).show();
+                handler.generateError(error);
 
             }
         };
@@ -336,4 +340,23 @@ public class UploadActivity extends AppCompatActivity {
                 .check();
     }
 
+    public void sendDocument() {
+        ApiInterface.UpdateDriverCallback updateDriverCallback = new ApiInterface.UpdateDriverCallback() {
+            @Override
+            public void onResponse() {
+
+            }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        };
+        User user = new User();
+        user.setMobileNum(GlobalVariables.phoneUser);
+        user.setEmail(GlobalVariables.email);
+        user.setName(GlobalVariables.name);
+        UserController userController = new UserController(updateDriverCallback);
+        userController.updateDriver(user,document);
+    }
 }

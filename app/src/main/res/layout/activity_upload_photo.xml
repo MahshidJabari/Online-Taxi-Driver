@@ -31,29 +31,6 @@
             app:layout_constraintVertical_bias="0.5"
             app:layout_constraintWidth_percent="0.6" />
 
-        <TextView
-            android:id="@+id/tv_return"
-            style="@style/tv_return"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:gravity="start"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintDimensionRatio="3"
-            app:layout_constraintLeft_toRightOf="@id/tv_title"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.5"
-            app:layout_constraintWidth_percent="0.15" />
-
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:gravity="center"
-            android:src="@drawable/ic_chevron_right_white_24dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toRightOf="@id/tv_return"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintWidth_percent="0.08" />
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.jabari.driver">
 
     <uses-permission android:name="android.permission.SEND_SMS" />
@@ -49,6 +50,15 @@
         <activity android:name=".activity.account.AccountActivity" />
         <activity android:name=".activity.DebugActivity" />
         <activity android:name=".activity.account.UploadActivity" />
+
+        <service
+            android:name="me.cheshmak.android.sdk.core.push.CheshmakFirebaseMessagingService"
+            tools:node="remove" />
+        <service android:name=".global.FcmService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGE_EVENT" />
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>
