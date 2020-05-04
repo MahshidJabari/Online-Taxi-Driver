@@ -1,14 +1,18 @@
 package com.jabari.driver.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.os.Bundle;
+import android.view.View;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 
 import com.jabari.driver.R;
+import com.jabari.driver.activity.main.MainActivity;
 import com.jabari.driver.controller.LocationController;
 import com.jabari.driver.network.config.ApiInterface;
 
@@ -29,7 +33,7 @@ import org.neshan.vectorelements.Marker;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-public class TravelDetailsActivity extends AppCompatActivity {
+public class TravelActivity extends AppCompatActivity {
 
     private MapView map;
     VectorElementLayer markerLayer;
@@ -60,7 +64,7 @@ public class TravelDetailsActivity extends AppCompatActivity {
     private void initLayoutReferences() {
         map = findViewById(R.id.mapView);
         initMap();
-        getLatLong();
+        getRequest();
 
     }
 
@@ -80,15 +84,12 @@ public class TravelDetailsActivity extends AppCompatActivity {
         map.setZoom(14, 0);
     }
 
-    private void getLatLong() {
+    private void getRequest() {
 
-        ApiInterface.GetPointsCallback getPointsCallback = new ApiInterface.GetPointsCallback() {
+        ApiInterface.RequestCallback getPointsCallback = new ApiInterface.RequestCallback() {
             @Override
-            public void onResponse(Location start, Location stop) {
+            public void onResponse() {
 
-
-                addMarker(new LngLat(start.getLongitude(), start.getLatitude()));
-                addMarker(new LngLat(stop.getLongitude(), stop.getLatitude()));
             }
 
             @Override
@@ -96,8 +97,10 @@ public class TravelDetailsActivity extends AppCompatActivity {
 
             }
         };
-        LocationController locationController = new LocationController(getPointsCallback);
-        locationController.Do();
+    }
+
+    public void onCancelClicked(View view) {
+        startActivity(new Intent(TravelActivity.this, MainActivity.class));
     }
 
     private void addMarker(LngLat loc) {

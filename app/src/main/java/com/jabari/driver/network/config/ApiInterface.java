@@ -62,16 +62,6 @@ public interface ApiInterface {
         void onFailure(String error);
     }
 
-    @FormUrlEncoded
-    @POST("auth/driver/getlatlong")
-    Call<JsonObject> getLatLong();
-
-    interface GetPointsCallback {
-        void onResponse(Location start, Location stop);
-
-        void onFailure(String error);
-    }
-
     @GET("driver")
     Call<JsonObject> currentUser();
 

@@ -92,6 +92,7 @@
     <string name="select_photo">انتخاب عکس از گالری</string>
     <string name="capture_photo">گرفتن عکس با دوربین</string>
     <string name="ready">آماده ی پذیرش درخواست هستم</string>
+    <string name="confirm">قبول درخواست</string>
     <string name="agree">قبول دارم</string>
     <!--   <string name="linkToSite"><a href="">قوانین و مقررات</a></string>
     -->
@@ -105,11 +106,11 @@
 
 
     <string-array name="vehicle_arrays">
-        <item>پیک موتوری</item>
-        <item>تاکسی موتور</item>
+        <item>موتور بار</item>
+        <item>موتور مسافر/ بار</item>
+        <item>وانت و نیسان</item>
         <item>سواری</item>
-        <item>وانت سنگین</item>
-        <item>وانت بار</item>
+        <item>سواری سنکین</item>
     </string-array>
     <!-- exception messages    -->
     <string name="exp_null">عملیات با خطا مواجه شد</string>

@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.jabari.driver.R;
@@ -29,6 +30,7 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText et_name, et_fName, et_nationalcode, et_personalcode, et_age, et_address, et_sheba, et_phone;
     private TextView tv_return;
     private User user;
+    private Spinner vehicle_spin;
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -56,6 +58,7 @@ public class RegisterActivity extends AppCompatActivity {
         et_sheba = findViewById(R.id.et_numShaba);
         et_phone = findViewById(R.id.et_phone);
         tv_return = findViewById(R.id.tv_return);
+        vehicle_spin = findViewById(R.id.spinner_vehicle);
 
     }
 
@@ -84,6 +87,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     public void OnRegisterClick(View view) {
 
+        GlobalVariables.vehicle = String.valueOf(vehicle_spin.getSelectedItemId() + 1);
         ApiInterface.SignUpCallback signUpCallback = new ApiInterface.SignUpCallback() {
             @Override
             public void onResponse(String token) {
@@ -97,10 +101,8 @@ public class RegisterActivity extends AppCompatActivity {
             }
         };
 
-        //empty document which will be filled in profile activity
-        Document document = new Document();
         RegisterController registerController = new RegisterController(signUpCallback);
-        registerController.signUp(createUser(), document);
+        registerController.signUp(createUser());
 
 
     }
@@ -112,5 +114,5 @@ public class RegisterActivity extends AppCompatActivity {
         GlobalVariables.tok = token;
 
     }
-
 }
+

@@ -22,7 +22,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.TravelDetailsActivity" />
+        <activity android:name=".activity.TravelActivity">
+            <meta-data
+                android:name="cheshmakPush"
+                android:value="openActivityOnPush" />
+        </activity>
 
         <activity android:name=".activity.account.FirstActivity">
             <intent-filter>
@@ -41,10 +45,6 @@
         <activity android:name=".activity.main.SalaryActivity" />
         <activity android:name=".activity.main.RewardActivity" />
         <activity android:name=".activity.main.MainActivity">
-
-            <meta-data
-                android:name="cheshmakPush"
-                android:value="openActivityOnPush" />
 
         </activity>
         <activity android:name=".activity.account.AccountActivity" />
