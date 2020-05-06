@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.jabari.driver.R;
 import com.jabari.driver.activity.main.MainActivity;
 import com.jabari.driver.controller.LocationController;
+import com.jabari.driver.controller.RequestController;
 import com.jabari.driver.network.config.ApiInterface;
 
 import org.neshan.core.LngLat;
@@ -131,5 +132,21 @@ public class TravelActivity extends AppCompatActivity {
 
         // Adding marker to markerLayer, or showing marker on map!
         markerLayer.add(marker);
+    }
+
+    public void OnAcceptClick() {
+        ApiInterface.AcceptedRequestCallback acceptedRequestCallback = new ApiInterface.AcceptedRequestCallback() {
+            @Override
+            public void onResponse() {
+
+            }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        };
+        RequestController requestController = new RequestController(acceptedRequestCallback);
+        requestController.acceptRequest();
     }
 }

@@ -37,6 +37,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:gravity="right"
+            android:onClick="onBackClick"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintDimensionRatio="4"
             app:layout_constraintLeft_toRightOf="@id/tv_title"
@@ -49,6 +50,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:gravity="center"
+            android:onClick="onBackClick"
             android:src="@drawable/ic_chevron_right_white_24dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toRightOf="@id/tv_return"
@@ -93,9 +95,11 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_history"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/guideline_underHeader"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintVertical_bias="0.0">
 
     </androidx.recyclerview.widget.RecyclerView>
 
