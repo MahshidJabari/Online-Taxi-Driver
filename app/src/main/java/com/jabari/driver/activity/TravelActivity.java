@@ -3,7 +3,6 @@ package com.jabari.driver.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
-import android.location.Location;
 import android.os.Bundle;
 import android.view.View;
 
@@ -13,7 +12,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.jabari.driver.R;
 import com.jabari.driver.activity.main.MainActivity;
-import com.jabari.driver.controller.LocationController;
 import com.jabari.driver.controller.RequestController;
 import com.jabari.driver.network.config.ApiInterface;
 

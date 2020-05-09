@@ -2,9 +2,14 @@ package com.jabari.driver.controller;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
 import com.jabari.driver.network.config.ApiClient;
 import com.jabari.driver.network.config.ApiInterface;
 import com.jabari.driver.network.model.Accounting;
+import com.jabari.driver.network.model.History;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -15,6 +20,7 @@ public class DetailController {
 
     ApiInterface.StarCallback starCallback;
     ApiInterface.AccountingCallback accountingCallback;
+    ApiInterface.HistoryCallback historyCallback;
 
     public DetailController(ApiInterface.StarCallback starCallback) {
         this.starCallback = starCallback;
@@ -22,6 +28,10 @@ public class DetailController {
 
     public DetailController(ApiInterface.AccountingCallback accountingCallback) {
         this.accountingCallback = accountingCallback;
+    }
+
+    public DetailController(ApiInterface.HistoryCallback historyCallback) {
+        this.historyCallback = historyCallback;
     }
 
     public void getStars() {
@@ -73,6 +83,28 @@ public class DetailController {
             @Override
             public void onFailure(Call<Accounting> call, Throwable t) {
                 accountingCallback.onFailure("connection");
+            }
+        });
+    }
+
+    public void getHistory() {
+        Retrofit retrofit = ApiClient.getClient();
+        ApiInterface apiInterface = retrofit.create(ApiInterface.class);
+        Call<JsonObject> call = apiInterface.history();
+        call.enqueue(new Callback<JsonObject>() {
+            @Override
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                if (response.body() != null) {
+                    Type requestListType = new TypeToken<ArrayList<History>>() {
+                    }.getType();
+                    ArrayList<History> requests = new Gson().fromJson(response.body().get("requests"), requestListType);
+                    historyCallback.onResponse(requests);
+                } else historyCallback.onFailure("null");
+            }
+
+            @Override
+            public void onFailure(Call<JsonObject> call, Throwable t) {
+                historyCallback.onFailure("connection");
             }
         });
     }

@@ -1,11 +1,12 @@
 package com.jabari.driver.network.config;
 
-import android.location.Location;
-
 import com.google.gson.JsonObject;
 import com.jabari.driver.network.model.Accounting;
 import com.jabari.driver.network.model.Coordinate;
+import com.jabari.driver.network.model.History;
 import com.jabari.driver.network.model.User;
+
+import java.util.ArrayList;
 
 import okhttp3.MultipartBody;
 import retrofit2.Call;
@@ -121,6 +122,15 @@ public interface ApiInterface {
         void onFailure(String error);
     }
 
+    @GET("driver/accounting")
+    Call<JsonObject> history();
+
+    interface HistoryCallback {
+        void onResponse(ArrayList<History> historyList);
+
+        void onFailure(String error);
+    }
+
     @GET("driver/star")
     Call<JsonObject> star();
 
@@ -195,4 +205,5 @@ public interface ApiInterface {
         void onFailure(String error);
 
     }
+
 }

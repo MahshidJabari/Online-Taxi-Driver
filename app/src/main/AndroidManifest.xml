@@ -44,6 +44,7 @@
         <activity android:name=".activity.HistoryActivity" />
         <activity android:name=".activity.main.SalaryActivity" />
         <activity android:name=".activity.main.RewardActivity" />
+        <activity android:name=".activity.main.TravelDetailActivity"/>
         <activity android:name=".activity.main.MainActivity">
 
         </activity>

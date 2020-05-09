@@ -1,59 +1,141 @@
 package com.jabari.driver.network.model;
 
-public class History {
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
-    private String cash;
-    private Boolean returned;
-    private Boolean pay_right;
-    private String payment_company;
-    private String receiver_address;
-    private String sender_address;
+import java.io.Serializable;
+import java.util.ArrayList;
 
-    public String getReciever_address() {
-        return receiver_address;
+public class History implements Serializable {
+
+    @SerializedName("location")
+    private ArrayList<String> location;
+
+    @SerializedName("Destination")
+    private ArrayList<String> Destination;
+    @SerializedName("vehicle")
+    @Expose
+    private String vehicle;
+    @SerializedName("stop")
+    @Expose
+    private boolean stop;
+    @SerializedName("haveReturn")
+    @Expose
+    private boolean haveReturn;
+    @SerializedName("cashPayment")
+    @Expose
+    private int cashPayment;
+    @SerializedName("payByRequest")
+    @Expose
+    private boolean payByRequest;
+    @SerializedName("destinationAddress")
+    @Expose
+    private String destinationAddress;
+    @SerializedName("locationAddress")
+    @Expose
+    private String locationAddress;
+    @SerializedName("id")
+    private String id;
+    @SerializedName("createdAt")
+    private String createdAt;
+    @SerializedName("driver")
+    private String driver;
+
+    public String getDriver() {
+        return driver;
     }
 
-    public void setReciever_address(String reciever_address) {
-        this.receiver_address = reciever_address;
+    public void setDriver(String driver) {
+        this.driver = driver;
     }
 
-    public String getSender_address() {
-        return sender_address;
+    public ArrayList<String> getLocation() {
+        return location;
     }
 
-    public void setSender_address(String sender_address) {
-        this.sender_address = sender_address;
+    public void setLocation(ArrayList<String> location) {
+        this.location = location;
     }
 
-    public String getCash() {
-        return cash;
+    public ArrayList<String> getDestination() {
+        return Destination;
     }
 
-    public void setCash(String cash) {
-        this.cash = cash;
+    public void setDestination(ArrayList<String> destination) {
+        Destination = destination;
     }
 
-    public Boolean getReturned() {
-        return returned;
+    public String getVehicle() {
+        return vehicle;
     }
 
-    public void setReturned(Boolean returned) {
-        this.returned = returned;
+    public void setVehicle(String vehicle) {
+        this.vehicle = vehicle;
     }
 
-    public Boolean getPay_right() {
-        return pay_right;
+
+    public int getCashPayment() {
+        return cashPayment;
     }
 
-    public void setPay_right(Boolean pay_right) {
-        this.pay_right = pay_right;
+    public void setCashPayment(int cashPayment) {
+        this.cashPayment = cashPayment;
     }
 
-    public String getPayment_company() {
-        return payment_company;
+    public String getDestinationAddress() {
+        return destinationAddress;
     }
 
-    public void setPayment_company(String payment_company) {
-        this.payment_company = payment_company;
+    public void setDestinationAddress(String destinationAddress) {
+        this.destinationAddress = destinationAddress;
     }
+
+    public String getLocationAddress() {
+        return locationAddress;
+    }
+
+    public void setLocationAddress(String locationAddress) {
+        this.locationAddress = locationAddress;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public boolean isStop() {
+        return stop;
+    }
+
+    public void setStop(boolean stop) {
+        this.stop = stop;
+    }
+
+    public boolean isHaveReturn() {
+        return haveReturn;
+    }
+
+    public void setHaveReturn(boolean haveReturn) {
+        this.haveReturn = haveReturn;
+    }
+
+    public boolean isPayByRequest() {
+        return payByRequest;
+    }
+
+    public void setPayByRequest(boolean payByRequest) {
+        this.payByRequest = payByRequest;
+    }
+
 }
