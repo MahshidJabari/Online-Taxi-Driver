@@ -280,6 +280,7 @@ public class MainActivity extends AppCompatActivity {
                 GlobalVariables.email = user.getEmail();
                 GlobalVariables.name = user.getName();
                 GlobalVariables.phoneUser = user.getMobileNum();
+                GlobalVariables.vehicle = user.getVehicle().getTitle();
 
             }
 

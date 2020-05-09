@@ -178,8 +178,8 @@
                 android:layout_weight="1.5"
                 android:text="@string/account_owner" />
 
-            <EditText
-                android:id="@+id/et_account_name"
+            <TextView
+                android:id="@+id/tv_account_name"
                 style="@style/dark_blue_15"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

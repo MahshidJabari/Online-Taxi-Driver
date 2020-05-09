@@ -15,7 +15,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
+      <!--  <ImageView
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:gravity="center"
@@ -26,7 +26,7 @@
             app:layout_constraintRight_toLeftOf="@id/tv_title"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintWidth_percent="0.1" />
-
+-->
         <TextView
             android:id="@+id/tv_title"
             style="@style/title_text"
@@ -420,21 +420,17 @@
             app:layout_constraintRight_toLeftOf="@id/guideline_right_"
             app:layout_constraintTop_toBottomOf="@id/btn_telegramchannel" />
 
-        <TextView
-            android:id="@+id/tv_creditcard"
+        <Button
+            android:id="@+id/btn_creditcard"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="10dp"
             android:background="@android:color/transparent"
             android:drawableEnd="@drawable/ic_chevron_left_black_24dp"
             android:gravity="start"
-            android:hint="@string/driver_card"
-            android:lines="1"
-            android:maxLines="1"
             android:paddingBottom="8dp"
-            android:textColor="@color/black"
-            android:textColorHint="@color/color01"
-            android:textSize="15sp"
+            android:text="@string/driver_card"
+            android:textColor="@color/darkGray"
             app:layout_constraintHeight_percent="0.09"
             app:layout_constraintLeft_toRightOf="@id/guideline_left_"
             app:layout_constraintRight_toLeftOf="@id/guideline_right_"

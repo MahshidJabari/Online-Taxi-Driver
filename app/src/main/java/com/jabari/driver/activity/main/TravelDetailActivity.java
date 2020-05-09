@@ -122,9 +122,9 @@ public class TravelDetailActivity extends AppCompatActivity {
             startPosSelected = true;
 
         }
-        /*if (travel.getDestination().get(0) != null & travel.getDestination().get(1) != null) {
-            addMarker(new LngLat(Double.parseDouble(travel.getDestination().get(0)), Double.parseDouble(travel.getDestination().get(1))));
-        }*/
+        if (history.getDestination().get(0) != null & history.getDestination().get(1) != null) {
+            addMarker(new LngLat(Double.parseDouble(history.getDestination().get(0)), Double.parseDouble(history.getDestination().get(1))));
+        }
 
         map.setZoom(15, 0);
     }
@@ -143,14 +143,14 @@ public class TravelDetailActivity extends AppCompatActivity {
             focusOnLocation(loc);
 
         }
-      /*  else {  MarkerStyleCreator markStCr = new MarkerStyleCreator();
+        else {  MarkerStyleCreator markStCr = new MarkerStyleCreator();
             markStCr.setSize(40f);
             markStCr.setBitmap(BitmapUtils.createBitmapFromAndroidBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.location)));
             MarkerStyle markSt = markStCr.buildStyle();
             // Creating marker
             Marker marker = new Marker(loc, markSt);
             // Adding marker to markerLayer, or showing marker on map!
-            endMarker.add(marker);}*/
+            endMarker.add(marker);}
 
     }
 

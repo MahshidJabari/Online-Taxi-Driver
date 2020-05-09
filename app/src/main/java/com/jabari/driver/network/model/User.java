@@ -23,6 +23,16 @@ public class User {
     @SerializedName("fatherName")
     String fatherName;
 
+    @SerializedName("vehicle")
+    Vehicle vehicle;
+
+    public Vehicle getVehicle() {
+        return vehicle;
+    }
+
+    public void setVehicle(Vehicle vehicle) {
+        this.vehicle = vehicle;
+    }
 
     public String getAge() {
         return age;

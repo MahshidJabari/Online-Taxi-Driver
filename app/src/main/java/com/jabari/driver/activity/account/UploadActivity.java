@@ -25,6 +25,7 @@ import com.jabari.driver.controller.RegisterController;
 import com.jabari.driver.controller.UserController;
 import com.jabari.driver.global.ExceptionHandler;
 import com.jabari.driver.global.GlobalVariables;
+import com.jabari.driver.global.PrefManager;
 import com.jabari.driver.network.config.ApiInterface;
 import com.jabari.driver.network.model.Document;
 import com.jabari.driver.network.model.User;
@@ -355,7 +356,25 @@ public class UploadActivity extends AppCompatActivity {
         user.setMobileNum(GlobalVariables.phoneUser);
         user.setEmail(GlobalVariables.email);
         user.setName(GlobalVariables.name);
+        savePreferences(user,document);
         UserController userController = new UserController(updateDriverCallback);
         userController.updateDriver(user,document);
+        savePreferences(user,document);
+    }
+    private void savePreferences(User user,Document document) {
+
+        PrefManager prefManager = new PrefManager(getBaseContext());
+
+        prefManager.setPhoneNum(user.getMobileNum());
+        GlobalVariables.phoneUser = user.getMobileNum();
+        prefManager.setDocMeli(document.getDocumentMeli());
+        prefManager.setId(document.getDocumentId());
+        prefManager.setLicence(document.getDocumentLicense());
+        prefManager.setMilitary(document.getDocumentMilitary());
+        prefManager.setElectricBill(document.getDocumentElectricalBill());
+        prefManager.setWaterBill(document.getDocumentWaterBill());
+        prefManager.setGreenPaper(document.getDocumentGreenPaper());
+
+
     }
 }

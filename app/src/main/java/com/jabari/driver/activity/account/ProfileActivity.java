@@ -89,7 +89,6 @@ public class ProfileActivity extends AppCompatActivity {
         tv_email = findViewById(R.id.tv_email);
         tv_phone = findViewById(R.id.tv_phone);
         btn_sheba = findViewById(R.id.btn_numSheba);
-        tv_credit = findViewById(R.id.tv_creditcard);
         btn_debug = findViewById(R.id.btn_debugnum);
         btn_support = findViewById(R.id.btn_support);
         btn_telegram = findViewById(R.id.btn_telegramchannel);
