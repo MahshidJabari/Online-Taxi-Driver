@@ -35,11 +35,11 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:gravity="right"
+            android:onClick="onCancelClicked"
             android:text="@string/cancel"
             android:textColor="@color/white"
             android:textSize="16sp"
             android:textStyle="bold"
-            android:onClick="onCancelClicked"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintDimensionRatio="4"
             app:layout_constraintLeft_toRightOf="@id/tv_title"
@@ -130,6 +130,7 @@
             android:weightSum="3">
 
             <TextView
+                android:id="@+id/tv_code"
                 style="@style/common_text"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -138,6 +139,7 @@
                 android:textDirection="rtl" />
 
             <TextView
+                android:id="@+id/tv_date"
                 style="@style/text_pink_15"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -174,12 +176,14 @@
             android:layout_height="wrap_content"
             android:layout_weight="2"
             android:gravity="center"
+            android:layoutDirection="rtl"
             android:text="@string/shipping_cost"
             android:textColor="@color/color06"
             android:textSize="20sp"
             android:textStyle="bold" />
 
         <TextView
+            android:id="@+id/tv_cache"
             style="@style/mid_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -213,11 +217,54 @@
         android:id="@+id/lin3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layoutDirection="rtl"
         android:orientation="horizontal"
         android:weightSum="2"
         app:layout_constraintLeft_toRightOf="@id/guideline_left"
         app:layout_constraintRight_toLeftOf="@id/guideline_right"
         app:layout_constraintTop_toBottomOf="@id/view2">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="end"
+                android:text="@string/stop"
+                android:textColor="@color/color06"
+                android:textSize="20sp"
+                android:textStyle="bold">
+
+
+            </TextView>
+
+
+            <TextView
+                android:id="@+id/tv_stop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="دارد"
+                android:textColor="@color/blue"
+                android:textDirection="rtl"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="2dp"
+            android:layout_height="match_parent"
+            android:background="@color/gray" />
+
 
         <LinearLayout
             android:layout_width="0dp"
@@ -252,48 +299,6 @@
                 android:textStyle="bold" />
 
         </LinearLayout>
-
-        <View
-            android:layout_width="2dp"
-            android:layout_height="match_parent"
-            android:background="@color/gray" />
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:gravity="end"
-                android:text="@string/stop"
-                android:textColor="@color/color06"
-                android:textSize="20sp"
-                android:textStyle="bold">
-
-
-            </TextView>
-
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="دارد"
-                android:textColor="@color/blue"
-                android:textDirection="rtl"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-
-        </LinearLayout>
-
-
     </LinearLayout>
 
     <View
@@ -309,50 +314,13 @@
         android:id="@+id/lin4"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layoutDirection="rtl"
         android:orientation="horizontal"
         android:weightSum="2"
         app:layout_constraintLeft_toRightOf="@id/guideline_left"
         app:layout_constraintRight_toLeftOf="@id/guideline_right"
         app:layout_constraintTop_toBottomOf="@id/view3">
 
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="@string/payment_permission"
-                android:textAlignment="center"
-                android:textColor="@color/color06"
-                android:textSize="20sp"
-                android:textStyle="bold">
-
-            </TextView>
-
-            <TextView
-                android:id="@+id/tv_pay_right"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:layout_marginBottom="10dp"
-                android:gravity="center"
-                android:text="(دارد)"
-                android:textColor="@color/blue"
-                android:textDirection="ltr"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-        </LinearLayout>
-
-        <View
-            android:layout_width="2dp"
-            android:layout_height="match_parent"
-            android:background="@color/gray" />
 
         <LinearLayout
             android:layout_width="0dp"
@@ -390,6 +358,45 @@
 
         </LinearLayout>
 
+        <View
+            android:layout_width="2dp"
+            android:layout_height="match_parent"
+            android:background="@color/gray" />
+
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/payment_permission"
+                android:textAlignment="center"
+                android:textColor="@color/color06"
+                android:textSize="20sp"
+                android:textStyle="bold">
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/tv_pay_right"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginBottom="10dp"
+                android:gravity="center"
+                android:text="(دارد)"
+                android:textColor="@color/blue"
+                android:textDirection="ltr"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
 
     </LinearLayout>
 

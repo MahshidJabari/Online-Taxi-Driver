@@ -61,6 +61,9 @@ public class ExceptionHandler {
             case "sheba":
                 Toasty.success(myContext.getBaseContext(), myContext.getString(R.string.success_sheba), Toasty.LENGTH_LONG).show();
                 break;
+            case "accept":
+                Toasty.success(myContext.getBaseContext(), myContext.getString(R.string.success_accept), Toasty.LENGTH_LONG).show();
+                break;
         }
     }
 }

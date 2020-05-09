@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,7 +14,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.jabari.driver.R;
 import com.jabari.driver.activity.main.MainActivity;
 import com.jabari.driver.controller.RequestController;
+import com.jabari.driver.global.DigitConverter;
+import com.jabari.driver.global.ExceptionHandler;
 import com.jabari.driver.network.config.ApiInterface;
+import com.jabari.driver.network.model.History;
 
 import org.neshan.core.LngLat;
 import org.neshan.core.Range;
@@ -33,11 +37,13 @@ import org.neshan.vectorelements.Marker;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class TravelActivity extends AppCompatActivity {
-
+    private TextView tv_code, tv_date, tv_cache, tv_stop, tv_return, tv_payment_side, tv_start_location, tv_end_location, tv_payment_right;
     private MapView map;
     VectorElementLayer markerLayer;
     final int BASE_MAP_INDEX = 0;
     final int POI_INDEX = 1;
+    private ExceptionHandler handler;
+    public History request;
 
 
     @Override
@@ -49,7 +55,7 @@ public class TravelActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_traveldetail);
-
+        handler = new ExceptionHandler(this);
 
     }
 
@@ -58,6 +64,38 @@ public class TravelActivity extends AppCompatActivity {
         super.onStart();
         initLayoutReferences();
 
+    }
+
+    private void setView() {
+
+        tv_code = findViewById(R.id.tv_code);
+        tv_date = findViewById(R.id.tv_date);
+        tv_cache = findViewById(R.id.tv_cache);
+        tv_stop = findViewById(R.id.tv_stop);
+        tv_return = findViewById(R.id.tv_money_back);
+        tv_payment_side = findViewById(R.id.tv_payment_side);
+        tv_start_location = findViewById(R.id.tv_start_address);
+        tv_end_location = findViewById(R.id.tv_destination_address);
+        tv_payment_right = findViewById(R.id.tv_pay_right);
+        ///////
+        tv_code.setText(request.getId());
+        tv_date.setText(DigitConverter.convert(request.getCreatedAt()));
+        tv_cache.setText(DigitConverter.convert(String.valueOf(request.getCashPayment())));
+        tv_start_location.setText(request.getLocationAddress());
+        tv_end_location.setText(request.getDestinationAddress());
+        if (request.isStop())
+            tv_stop.setText("دارد");
+        else tv_stop.setText("ندارد");
+        if (request.isHaveReturn())
+            tv_return.setText("دارد");
+        else tv_return.setText("ندارد");
+        if (request.isPayByRequest()) {
+            tv_payment_side.setText("مبدا");
+            tv_payment_right.setText("دارد");
+        } else {
+            tv_payment_side.setText("مقصد");
+            tv_payment_right.setText("ندارد");
+        }
     }
 
     private void initLayoutReferences() {
@@ -85,10 +123,13 @@ public class TravelActivity extends AppCompatActivity {
 
     private void getRequest() {
 
-        ApiInterface.RequestCallback getPointsCallback = new ApiInterface.RequestCallback() {
+        ApiInterface.RequestCallback requestCallback = new ApiInterface.RequestCallback() {
             @Override
-            public void onResponse() {
-
+            public void onResponse(History history) {
+                request = history;
+                setView();
+                addMarker(new LngLat(Double.parseDouble(history.getDestination().get(0)), Double.parseDouble(history.getDestination().get(1))));
+                addMarker(new LngLat(Double.parseDouble(history.getLocation().get(0)), Double.parseDouble(history.getLocation().get(1))));
             }
 
             @Override
@@ -96,6 +137,8 @@ public class TravelActivity extends AppCompatActivity {
 
             }
         };
+        RequestController requestController = new RequestController(requestCallback);
+        requestController.getReadyRequests();
     }
 
     public void onCancelClicked(View view) {
@@ -103,9 +146,6 @@ public class TravelActivity extends AppCompatActivity {
     }
 
     private void addMarker(LngLat loc) {
-        // First, we should clear every marker that is currently located on map
-        markerLayer.clear();
-
         // Creating animation for marker. We should use an object of type AnimationStyleBuilder, set
         // all animation features on it and then call buildStyle() method that returns an object of type
         // AnimationStyle
@@ -136,15 +176,15 @@ public class TravelActivity extends AppCompatActivity {
         ApiInterface.AcceptedRequestCallback acceptedRequestCallback = new ApiInterface.AcceptedRequestCallback() {
             @Override
             public void onResponse() {
-
+                handler.generateSuccess("accept");
             }
 
             @Override
             public void onFailure(String error) {
-
+                handler.generateError(error);
             }
         };
         RequestController requestController = new RequestController(acceptedRequestCallback);
-        requestController.acceptRequest();
+        requestController.acceptRequest(request.getId());
     }
 }

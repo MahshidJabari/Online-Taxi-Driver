@@ -129,6 +129,7 @@
     <string name="success_visibility">درخواست های سفر برای شما ارسال می شود</string>
     <string name="success_code">کد فعالسازی با موفقیت ارسال شد</string>
     <string name="success_sheba">اطلاعات حساب با موفقیت ثبت شد</string>
+    <string name="success_accept">درخواست پذیرفته شد</string>
 </resources>
 
 

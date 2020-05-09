@@ -144,7 +144,7 @@ public interface ApiInterface {
     Call<JsonObject> readyRequests();
 
     interface RequestCallback {
-        void onResponse();
+        void onResponse(History history);
 
         void onFailure(String error);
 
@@ -152,7 +152,7 @@ public interface ApiInterface {
 
     @FormUrlEncoded
     @PUT("driver/request/ready")
-    Call<JsonObject> acceptedRequest();
+    Call<JsonObject> acceptedRequest(@Field("id") String id);
 
     interface AcceptedRequestCallback {
         void onResponse();
