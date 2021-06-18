@@ -23,10 +23,10 @@ public class RequestController {
         this.acceptedRequestCallback = acceptedRequestCallback;
     }
 
-    public void getReadyRequests() {
+    public void getReadyRequests(String id) {
         Retrofit retrofit = ApiClient.getClient();
         ApiInterface apiInterface = retrofit.create(ApiInterface.class);
-        Call<JsonObject> call = apiInterface.readyRequests();
+        Call<JsonObject> call = apiInterface.readyRequests(id);
         call.enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {

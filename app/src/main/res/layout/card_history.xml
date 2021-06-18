@@ -14,24 +14,13 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="40dp"
         android:layout_marginTop="20dp"
+        android:layoutDirection="rtl"
         android:layout_marginRight="40dp"
         android:background="@drawable/back_radius_fifty_white"
         android:orientation="horizontal"
         android:weightSum="2">
 
-        <TextView
-            android:id="@+id/tv_date"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:drawableRight="@drawable/ic_date_range_pink_24dp"
-            android:paddingRight="30dp"
-            android:text="1397/8/22"
-            android:textColor="@color/pink"
-            android:textSize="20sp"
-            android:textStyle="bold">
 
-        </TextView>
 
         <TextView
             android:id="@+id/tv_code"
@@ -43,12 +32,24 @@
             android:paddingRight="10dp"
             android:text="#aa"
             android:textColor="@color/darkGray"
-            android:textSize="20sp"
+            android:textSize="14sp"
             android:textStyle="bold">
 
         </TextView>
 
+        <TextView
+            android:id="@+id/tv_date"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableRight="@drawable/ic_date_range_pink_24dp"
+            android:paddingRight="10dp"
+            android:text="1397/8/22"
+            android:textColor="@color/pink"
+            android:textSize="18sp"
+            android:textStyle="bold">
 
+        </TextView>
     </LinearLayout>
 
     <View

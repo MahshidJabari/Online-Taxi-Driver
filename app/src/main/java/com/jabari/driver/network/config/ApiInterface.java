@@ -140,8 +140,9 @@ public interface ApiInterface {
         void onFailure(String error);
     }
 
-    @GET("driver/request/ready")
-    Call<JsonObject> readyRequests();
+    @FormUrlEncoded
+    @POST("driver/request/ready")
+    Call<JsonObject> readyRequests(@Field("id") String id);
 
     interface RequestCallback {
         void onResponse(History history);

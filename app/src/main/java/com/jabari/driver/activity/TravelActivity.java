@@ -19,6 +19,8 @@ import com.jabari.driver.global.ExceptionHandler;
 import com.jabari.driver.network.config.ApiInterface;
 import com.jabari.driver.network.model.History;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.neshan.core.LngLat;
 import org.neshan.core.Range;
 import org.neshan.layers.Layer;
@@ -44,6 +46,7 @@ public class TravelActivity extends AppCompatActivity {
     final int POI_INDEX = 1;
     private ExceptionHandler handler;
     public History request;
+    String id;
 
 
     @Override
@@ -56,8 +59,21 @@ public class TravelActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_traveldetail);
         handler = new ExceptionHandler(this);
+        Intent intent = getIntent();
+        if (intent != null) {
+            if (intent.getExtras() != null) {
+                JSONObject object = null;
+                try {
+                    object = new JSONObject(intent.getStringExtra("me.cheshmak.data"));
+                    id = object.getString("requestdId");
 
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
+
 
     @Override
     protected void onStart() {
@@ -122,23 +138,25 @@ public class TravelActivity extends AppCompatActivity {
     }
 
     private void getRequest() {
+        if (id != null) {
+            ApiInterface.RequestCallback requestCallback = new ApiInterface.RequestCallback() {
+                @Override
+                public void onResponse(History history) {
+                    request = history;
+                    setView();
+                    addMarker(new LngLat(Double.parseDouble(history.getDestination().get(0)), Double.parseDouble(history.getDestination().get(1))));
+                    addMarker(new LngLat(Double.parseDouble(history.getLocation().get(0)), Double.parseDouble(history.getLocation().get(1))));
+                }
 
-        ApiInterface.RequestCallback requestCallback = new ApiInterface.RequestCallback() {
-            @Override
-            public void onResponse(History history) {
-                request = history;
-                setView();
-                addMarker(new LngLat(Double.parseDouble(history.getDestination().get(0)), Double.parseDouble(history.getDestination().get(1))));
-                addMarker(new LngLat(Double.parseDouble(history.getLocation().get(0)), Double.parseDouble(history.getLocation().get(1))));
-            }
+                @Override
+                public void onFailure(String error) {
 
-            @Override
-            public void onFailure(String error) {
-
-            }
-        };
-        RequestController requestController = new RequestController(requestCallback);
-        requestController.getReadyRequests();
+                }
+            };
+            RequestController requestController = new RequestController(requestCallback);
+            requestController.getReadyRequests(id);
+        } else
+            handler.generateError("id");
     }
 
     public void onCancelClicked(View view) {

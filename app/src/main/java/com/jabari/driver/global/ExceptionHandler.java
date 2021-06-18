@@ -46,6 +46,9 @@ public class ExceptionHandler {
             case "null_doc":
                 Toasty.error(myContext.getBaseContext(), myContext.getString(R.string.exp_null_doc), Toasty.LENGTH_LONG).show();
                 break;
+            case "id":
+                Toasty.error(myContext.getBaseContext(), myContext.getString(R.string.exp_null_id), Toasty.LENGTH_LONG).show();
+                break;
         }
     }
 

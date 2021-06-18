@@ -103,30 +103,30 @@ public class LoginActivity extends AppCompatActivity {
         fab_login.setClickable(false);
     }
 
-    public void OnClickSendVerifyCode(View view) {
+    public void OnClickSendVerifyCode(final View view) {
 
         if (!isValidPhone(et_phoneNum.getText().toString()))
             handler.generateError("invalid phone");
         else {
             view.setBackgroundDrawable(getResources().getDrawable(R.drawable.back_fifty_radius_gray));
             final String phoneNumber = et_phoneNum.getText().toString();
-            LoginController loginController = new LoginController(new ApiInterface.UserVerifyCodeCallback() {
+            ApiInterface.UserVerifyCodeCallback userVerifyCodeCallback = new ApiInterface.UserVerifyCodeCallback() {
                 @Override
                 public void onResponse(String success) {
                     GlobalVariables.getVerify = true;
                     setFab_loginClickable();
                     handler.generateSuccess(success);
-
                 }
 
                 @Override
                 public void onFailure(String error) {
                     GlobalVariables.getVerify = false;
                     setFab_loginUnClickable();
+                    view.setBackgroundDrawable(getResources().getDrawable(R.drawable.back_fifty_radius_blue));
                     handler.generateError(error);
                 }
-            });
-
+            };
+            LoginController loginController = new LoginController(userVerifyCodeCallback);
             loginController.VerifyCode(phoneNumber);
 
         }

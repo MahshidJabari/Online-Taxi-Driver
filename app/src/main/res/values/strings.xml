@@ -124,6 +124,7 @@
     <string name="exp_law">لطفا قوانین و مقررات را تایید کنید</string>
     <string name="exp_anonymous">از حساب کاربری خود خارج شوید </string>
     <string name="exp_null_doc">مدارک به درستی ارسال نشده است</string>
+    <string name="exp_null_id">خطا در دریافت درخواست</string>
 
     <!-- success messages    -->
     <string name="success_visibility">درخواست های سفر برای شما ارسال می شود</string>

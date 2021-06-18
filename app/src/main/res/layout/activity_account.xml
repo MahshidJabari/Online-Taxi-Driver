@@ -216,7 +216,8 @@
             android:layout_height="wrap_content"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
-            android:text="@string/msg_sheba" />
+            android:text="@string/msg_sheba"
+            android:textSize="16sp" />
 
     </LinearLayout>
 
